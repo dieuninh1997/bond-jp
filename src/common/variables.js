@@ -1,12 +1,18 @@
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 export const Colors = {
-  primary: '#01C853',
-  lightenPrimary: '#5bdb90',
-  secondary: '#7c8580',
-  lightenSecondary: '#dce2e0',
+  primary: '#004188',
+  lightenPrimary: '#2D6099',
+  darkenPrimary: '#00254F',
+  secondary: '#2D4B6E',
+  lightenSecondary: '#7C8FA4',
+  green: '#00FBB7',
+  white: '#FFFFFF',
+  blacl: '#000000',
+  violet: '#B510DA',
+  lightenBlue: '#458ADA',
   warning: '#f3c12e',
-  info: '#000000',
+  info: '#FFFFFF',
   danger: '#ff3600',
   link: '#265799',
 };

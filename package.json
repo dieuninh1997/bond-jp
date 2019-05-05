@@ -5,7 +5,13 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "ios": "react-native run-ios --simulator=\"iPhone 6\"",
+    "ios": "react-native run-ios",
+    "ios6": "react-native run-ios --simulator=\"iPhone 6\"",
+    "ios8": "react-native run-ios --simulator=\"iPhone 8\"",
+    "ios-8p": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone 8 Plus\"",
+    "ios-xs": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone Xs\"",
+    "ios-xr": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone Xr\"",
+    "ios-xsm": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone Xs Max\"",
     "android": "react-native run-android"
   },
   "dependencies": {

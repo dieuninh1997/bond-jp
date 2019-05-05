@@ -6,9 +6,22 @@ registerScreens();
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
-      component: {
-        name: 'MainScreen',
+      // component: {
+      //   name: 'MainScreen',
+      //   options: { topBar: { visible: false, height: 0 } },
+      // },
+      stack: {
+        children: [{
+          component: {
+            name: 'bondjp.MainScreen',
+            options: {
+              index: 1,
+            },
+          },
+        },
+        ],
       },
+
     },
   });
 });

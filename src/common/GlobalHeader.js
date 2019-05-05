@@ -11,7 +11,7 @@ import { Colors, FontSizes, Sizes } from './variables';
 
 class GlobalHeader extends React.PureComponent {
   render() {
-    const { showLeftButton, back } = this.props;
+    const { showLeftButton, back, title } = this.props;
 
     return (
       <SafeAreaView>
@@ -30,7 +30,7 @@ class GlobalHeader extends React.PureComponent {
           </View>
 
           <View style={styles.titleContainer}>
-            <Text style={styles.titleText} />
+            <Text style={styles.titleText}>{title}</Text>
           </View>
 
           {/* right button -setting */}
@@ -42,6 +42,7 @@ class GlobalHeader extends React.PureComponent {
 
 GlobalHeader.propTypes = {
   routeName: PropTypes.string,
+  title: PropTypes.string,
   showLeftButton: PropTypes.bool,
   back: PropTypes.bool,
 };
@@ -51,30 +52,32 @@ export default GlobalHeader;
 const styles = ScaledSheet.create({
   container: {
     width: '100%',
-    height: Sizes.s5,
+    height: Sizes.s10,
     paddingHorizontal: Sizes.s2,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: Platform.OS === 'ios' ? '25@ms' : 35,
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.darkenPrimary,
+    // backgroundColor: 'transparent',
   },
 
   titleContainer: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   titleText: {
-    fontSize: FontSizes.large,
+    fontSize: FontSizes.p,
     color: Colors.info,
   },
 
   iconBack: {
-    fontSize: Sizes.large,
+    fontSize: FontSizes.large,
     color: Colors.info,
   },
 
   iconMenu: {
-    fontSize: Sizes.large,
+    fontSize: FontSizes.large,
     color: Colors.info,
   },
 });
