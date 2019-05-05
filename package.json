@@ -9,21 +9,24 @@
     "android": "react-native run-android"
   },
   "dependencies": {
+    "prop-types": "15.7.2",
     "react": "16.6.3",
     "react-native": "0.58.6",
-    "react-native-navigation": "2.13.1"
+    "react-native-navigation": "2.13.1",
+    "react-native-vector-icons": "6.4.2"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "*",
     "babel-jest": "24.3.1",
-    "eslint": "^5.15.1",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react": "^7.13.0",
     "jest": "24.3.1",
     "metro-react-native-babel-preset": "0.53.0",
+    "react-native-size-matters": "./src/libs/react-native-size-matters",
     "react-test-renderer": "16.6.3"
   },
   "jest": {

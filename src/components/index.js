@@ -1,8 +1,6 @@
-import HomeScreen from './home';
-import TodoScreen from './todo';
+import MainScreen from './main';
 
 const screens = {
-  HomeScreen,
-  TodoScreen,
+  MainScreen,
 };
 export default screens;
