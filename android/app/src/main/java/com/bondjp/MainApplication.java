@@ -1,4 +1,4 @@
-package com.todoredux;
+package com.bondjp;
 
 import android.app.Application;
 
