@@ -1,47 +1,48 @@
 import React from 'react';
-import { View, Text, Platform } from 'react-native';
-import { openDatabase } from 'react-native-sqlite-storage';
-
-const db = openDatabase({
-  name: 'data.db',
-  location: 'default',
-  createFromLocation: '~www/data.db',
-},
-() => { console.log('Ket noi thanh cong'); },
-(error) => {
-  console.log(error);
-});
+import {
+  View, Text, FlatList, Image,
+} from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
 
 class AlphabetScreen extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      alphabet: [],
-    };
-
-    db.transaction((txn) => {
-      txn.executeSql('select * from bao;', [], (tx, results) => {
-        const tmp = [];
-        if (results.rows.length > 0) {
-          for (let i = 0; i < results.rows.length; i++) {
-            tmp.push(results.rows.item(i));
-          }
-          this.setState({ alphabet: tmp });
-        }
-      });
+  componentDidMount = () => {
+    const { alphabetActions } = this.props;
+    alphabetActions.getAlphabets({}, (error) => {
+      if (error) {
+        console.log('error', error);
+      }
     });
   }
 
+  _renderItem=({ item }) => (
+    <View style={{ flex: 1, height: 150 }}>
+      <Text>{item.TenChu}</Text>
+      <Image style={{ width: 100, height: 100 }} source={{ uri: `data:image/png;base64,${item.HinhAnh}` }} resizeMode="stretch" />
+    </View>
+  )
+
   render() {
-    const { alphabet } = this.state;
-    console.log('alphabet:', alphabet);
+    const { alphabets } = this.props;
+    console.log(alphabets);
 
     return (
-      <View>
-        <Text>AlphabetScreen</Text>
-        <Text>{this.dbTransaction}</Text>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={alphabets}
+          numColumns={5}
+          renderItem={this._renderItem}
+          keyExtractor={(item, index) => `${item.Id} - ${index}`}
+          extraData={this.props}
+        />
       </View>
     );
   }
 }
-export default AlphabetScreen;
+
+const mapStateToProps = state => ({ alphabets: state.alphabets });
+const mapDispatchToProps = dispatch => ({
+  alphabetActions: bindActionCreators(alphabetAction, dispatch),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AlphabetScreen);

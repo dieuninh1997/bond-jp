@@ -8,7 +8,7 @@ import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
 
 import org.pgsqlite.SQLitePluginPackage;
-
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +34,8 @@ public class MainApplication extends NavigationApplication {
      return Arrays.<ReactPackage>asList(
          // eg. new VectorIconsPackage()
           new SQLitePluginPackage(),   // register SQLite Plugin here
-             new MainReactPackage()
+             new MainReactPackage(),
+             new RNDeviceInfo()
      );
  }
   @Override

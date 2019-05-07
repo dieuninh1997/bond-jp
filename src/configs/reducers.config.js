@@ -1,7 +1,7 @@
-import reducers from '../redux';
+import { alphabetReducer } from '../redux';
 
 const rootReducer = {
-  alphabet: reducers.alphabetReducer,
+  alphabets: alphabetReducer,
 };
 
 export default rootReducer;
