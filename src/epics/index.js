@@ -1,9 +1,11 @@
 import { combineEpics } from 'redux-observable';
-import { getAlphabets } from './alphabet';
+import { getLettersAlphabet } from './alphabet';
+import { getAlphabetList } from './alphabetlist';
 
 
 const rootEpic = combineEpics(
-  getAlphabets,
+  getLettersAlphabet,
+  getAlphabetList,
 );
 
 export default rootEpic;

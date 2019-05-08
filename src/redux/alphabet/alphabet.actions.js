@@ -1,6 +1,6 @@
 import * as types from './alphabet.types';
 
-export const getAlphabets = (data, callback) => ({
-  type: types.GET_ALPHABET,
+export const getLettersAlphabet = (data, callback) => ({
+  type: types.GET_LETTERS_ALPHABET,
   payload: { data, callback },
 });

@@ -12,14 +12,17 @@
     "ios-xs": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone Xs\"",
     "ios-xr": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone Xr\"",
     "ios-xsm": "node node_modules/react-native/local-cli/cli.js run-ios --simulator=\"iPhone Xs Max\"",
-    "android": "react-native run-android"
+    "android": "react-native run-android",
+    "build:android": "rm -rf ./android/build && cd android && ./gradlew app:assembleRelease"
   },
   "dependencies": {
+    "lodash": "4.17.11",
     "prop-types": "15.7.2",
     "react": "16.6.3",
     "react-native": "0.58.6",
     "react-native-device-info": "1.6.1",
     "react-native-navigation": "2.13.1",
+    "react-native-splash-screen": "3.2.0",
     "react-native-sqlite-storage": "3.3.10",
     "react-native-vector-icons": "6.4.2",
     "react-redux": "6.0.1",

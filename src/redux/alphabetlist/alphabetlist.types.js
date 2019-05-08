@@ -1,0 +1,4 @@
+// get list of alphabets
+export const GET_ALPHABET_LIST = 'GET_ALPHABET_LIST';
+export const GET_ALPHABET_LIST_SUCCESS = 'GET_ALPHABET_LIST_SUCCESS';
+export const GET_ALPHABET_LIST_FAIL = 'GET_ALPHABET_LIST_FAIL';

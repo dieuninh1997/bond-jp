@@ -4,8 +4,10 @@ import screens from '../components';
 import store from './store.config';
 
 const registerScreens = () => {
-  Navigation.registerComponent('bondjp.MainScreen', () => screens.MainScreen);
+  Navigation.registerComponentWithRedux('bondjp.MainScreen', () => screens.MainScreen, Provider, store);
   Navigation.registerComponentWithRedux('bondjp.AlphabetScreen', () => screens.AlphabetScreen, Provider, store);
+  Navigation.registerComponentWithRedux('bondjp.AlphabetListScreen', () => screens.AlphabetListScreen, Provider, store);
+  Navigation.registerComponentWithRedux('bondjp.LetterScreen', () => screens.LetterScreen, Provider, store);
   Navigation.registerComponent('bondjp.CommunicationScreen', () => screens.CommunicationScreen);
   Navigation.registerComponent('bondjp.GrammarScreen', () => screens.GrammarScreen);
   Navigation.registerComponent('bondjp.KanjiScreen', () => screens.KanjiScreen);
