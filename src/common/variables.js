@@ -8,7 +8,7 @@ export const Colors = {
   lightenSecondary: '#7C8FA4',
   green: '#00FBB7',
   white: '#FFFFFF',
-  blacl: '#000000',
+  black: '#000000',
   violet: '#B510DA',
   lightenBlue: '#458ADA',
   warning: '#f3c12e',

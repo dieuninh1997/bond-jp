@@ -1,15 +1,48 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, FlatList, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-
-import GlobalHeader from 'common/GlobalHeader';
+import SplashScreen from 'react-native-splash-screen';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
+import * as alphabetListAction from '../../redux/alphabetlist/alphabetlist.actions';
+import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
+
 class MainScreen extends React.PureComponent {
+  static options(passProps) {
+    return {
+      topBar: {
+        visible: true,
+        animate: true, // Controls whether TopBar visibility changes should be animated
+        hideOnScroll: false,
+        drawBehind: false,
+        title: {
+          text: passProps.text,
+          fontSize: 18,
+          fontWeight: 'bold',
+          color: Colors.info,
+          fontFamily: 'Helvetica',
+          alignment: 'center',
+        },
+        background: {
+          color: Colors.darkenPrimary,
+          translucent: false,
+        },
+        // leftButtons: {
+        //   id: 'buttonInstaHome',
+        //   icon: require('../../assets/images/icon_insta.png'),
+        // },
+      },
+    };
+  }
+
   constructor(props) {
     super(props);
+    Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     this.state = {
       data: [
         'Học bảng chữ cái',
@@ -21,8 +54,25 @@ class MainScreen extends React.PureComponent {
         'Kiểm tra, ôn tập kiến thức',
         'Nghe nhạc tiếng Nhật'],
     };
+  }
 
-    Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
+
+  componentWillMount() {
+    const { alphabetListActions, alphabetActions } = this.props;
+    alphabetListActions.getAlphabetList({}, (error) => {
+      if (error) {
+        console.log('getAlphabetList error', error);
+      }
+    });
+    alphabetActions.getLettersAlphabet({}, (error) => {
+      if (error) {
+        console.log('getLettersAlphabet error', error);
+      }
+    });
+  }
+
+  componentDidMount() {
+    SplashScreen.hide();
   }
 
   onItemPressed = (name) => {
@@ -32,7 +82,10 @@ class MainScreen extends React.PureComponent {
     case data[0]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.AlphabetScreen',
+          name: 'bondjp.AlphabetListScreen',
+          passProps: {
+            text: 'Bảng chữ cái',
+          },
         },
       });
       break;
@@ -40,6 +93,9 @@ class MainScreen extends React.PureComponent {
       Navigation.push(componentId, {
         component: {
           name: 'bondjp.KanjiScreen',
+          passProps: {
+            text: '',
+          },
         },
       });
       break;
@@ -47,6 +103,9 @@ class MainScreen extends React.PureComponent {
       Navigation.push(componentId, {
         component: {
           name: 'bondjp.GrammarScreen',
+          passProps: {
+            text: '',
+          },
         },
       });
       break;
@@ -54,6 +113,9 @@ class MainScreen extends React.PureComponent {
       Navigation.push(componentId, {
         component: {
           name: 'bondjp.NewwordsScreen',
+          passProps: {
+            text: '',
+          },
         },
       });
       break;
@@ -61,6 +123,9 @@ class MainScreen extends React.PureComponent {
       Navigation.push(componentId, {
         component: {
           name: 'bondjp.CommunicationScreen',
+          passProps: {
+            text: '',
+          },
         },
       });
       break;
@@ -68,6 +133,9 @@ class MainScreen extends React.PureComponent {
       Navigation.push(componentId, {
         component: {
           name: 'bondjp.NewspapersScreen',
+          passProps: {
+            text: '',
+          },
         },
       });
       break;
@@ -75,6 +143,9 @@ class MainScreen extends React.PureComponent {
       Navigation.push(componentId, {
         component: {
           name: 'bondjp.PracticeScreen',
+          passProps: {
+            text: '',
+          },
         },
       });
       break;
@@ -82,6 +153,9 @@ class MainScreen extends React.PureComponent {
       Navigation.push(componentId, {
         component: {
           name: 'bondjp.ListeningScreen',
+          passProps: {
+            text: 'Bảng chữ cái',
+          },
         },
       });
       break;
@@ -107,8 +181,6 @@ class MainScreen extends React.PureComponent {
     const { data } = this.state;
     return (
       <View style={styles.container}>
-        {/* header */}
-        <GlobalHeader showLeftButton title="App học tiếng nhật" />
         {/* content */}
         <View style={[styles.content, { marginTop: Sizes.s4 }]}>
           {this._renderItem(data[0])}
@@ -133,9 +205,17 @@ class MainScreen extends React.PureComponent {
     );
   }
 }
-export default MainScreen;
+const mapStateToProps = state => ({ alphabetList: state.alphabetList });
 
-const styles = StyleSheet.create({
+
+const mapDispatchToProps = dispatch => ({
+  alphabetListActions: bindActionCreators(alphabetListAction, dispatch),
+  alphabetActions: bindActionCreators(alphabetAction, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+
+const styles = ScaledSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',

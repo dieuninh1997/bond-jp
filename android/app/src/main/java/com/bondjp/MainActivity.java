@@ -1,7 +1,13 @@
 package com.bondjp;
 
-import com.facebook.react.ReactActivity;
+import android.os.Bundle;
+
 import com.reactnativenavigation.NavigationActivity;
+
+import org.devio.rn.splashscreen.SplashScreen;
+
+// react-native-splash-screen >= 0.3.1
+// react-native-splash-screen < 0.3.1
 
 public class MainActivity extends NavigationActivity {
 
@@ -13,4 +19,9 @@ public class MainActivity extends NavigationActivity {
     // protected String getMainComponentName() {
     //     return "bondjp";
     // }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this, R.style.SplashScreenTheme);  // here
+        super.onCreate(savedInstanceState);
+    }
 }

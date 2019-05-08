@@ -1,16 +1,16 @@
 import React from 'react';
 import {
-  View, Text, FlatList, Image, TouchableOpacity, Dimensions,
+  View, Text, FlatList, Image, TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
-import _ from 'lodash';
-import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as alphabetListAction from '../../redux/alphabetlist/alphabetlist.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
-class AlphabetScreen extends React.PureComponent {
+class AlphabetListScreen extends React.PureComponent {
   static options(passProps) {
     return {
       topBar: {
@@ -19,7 +19,7 @@ class AlphabetScreen extends React.PureComponent {
         hideOnScroll: false,
         drawBehind: false,
         title: {
-          text: passProps.item.LoaiChu,
+          text: passProps.text,
           fontSize: 18,
           fontWeight: 'bold',
           color: Colors.info,
@@ -42,80 +42,83 @@ class AlphabetScreen extends React.PureComponent {
     Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
   }
 
-  hanldeLetterPressed=(letter) => {
-    const { item, componentId } = this.props;
+  handleAlphabetOpened=(item) => {
+    const { componentId } = this.props;
+    console.log('================================================');
+    console.log('alphabet open ', item.LoaiChu);
+    console.log('================================================');
     Navigation.push(componentId, {
       component: {
-        name: 'bondjp.LetterScreen',
+        name: 'bondjp.AlphabetScreen',
         passProps: {
-          letter,
-          LoaiChu: item.LoaiChu,
+          item,
+        },
+        options: {
+          index: 0,
         },
       },
     });
   }
 
   _renderItem=({ item }) => (
-    <TouchableOpacity onPress={() => this.hanldeLetterPressed(item)}>
-      <View style={styles.letterContainer}>
-        <Text style={styles.letter}>{item.TenChu}</Text>
+    <TouchableOpacity onPress={() => this.handleAlphabetOpened(item)}>
+      <View style={styles.itemContainer}>
+        <Text style={styles.itemName}>{item.LoaiChu}</Text>
+        <Ionicons name="ios-arrow-forward" style={styles.iconArrow} />
       </View>
-
     </TouchableOpacity>
+
   )
 
   render() {
-    const { alphabets, item } = this.props;
-
-    const letters = _.filter(alphabets, { IdLoaiChu: item.IdLoaiChu });
-    console.log(alphabets);
+    const { alphabetList } = this.props;
     console.log('================================================');
-    console.log('alphabets', alphabets);
-    console.log('item', item);
-    console.log('letters', letters);
+    console.log('props', this.props);
     console.log('================================================');
-
     return (
       <View style={styles.container}>
         <FlatList
-          data={letters}
-          numColumns={5}
+          data={alphabetList}
           renderItem={this._renderItem}
-          keyExtractor={(e, index) => `${e.IdChuCai} - ${index}`}
+          keyExtractor={(item, index) => `${item.Id} - ${index}`}
           extraData={this.props}
         />
       </View>
     );
   }
 }
+const mapStateToProps = state => ({ alphabetList: state.alphabetList });
 
-const mapStateToProps = state => ({ alphabets: state.alphabets });
 
 const mapDispatchToProps = dispatch => ({
-  alphabetActions: bindActionCreators(alphabetAction, dispatch),
+  alphabetListActions: bindActionCreators(alphabetListAction, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AlphabetScreen);
-
-const { width, height } = Dimensions.get('window');
+export default connect(mapStateToProps, mapDispatchToProps)(AlphabetListScreen);
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
   },
 
-  letterContainer: {
-    width: width / 5,
-    height: width / 5,
-    borderRightWidth: 1,
-    borderRightColor: Colors.black,
+  itemContainer: {
+    flex: 1,
+    flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: Colors.black,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: Sizes.s3,
+    paddingHorizontal: Sizes.s2,
   },
 
-  letter: {
+  itemName: {
+    flex: 1,
+    fontSize: FontSizes.p,
     color: Colors.black,
-    fontSize: FontSizes.h2,
+  },
+
+  iconArrow: {
+    fontSize: FontSizes.p,
+    color: Colors.black,
   },
 });

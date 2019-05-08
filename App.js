@@ -14,8 +14,11 @@ Navigation.events().registerAppLaunchedListener(() => {
         children: [{
           component: {
             name: 'bondjp.MainScreen',
+            passProps: {
+              text: 'Ứng dụng học tiếng nhật',
+            },
             options: {
-              index: 1,
+              index: 0,
             },
           },
         },
