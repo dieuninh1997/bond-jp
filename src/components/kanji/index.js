@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
-import { ScaledSheet, moderateScale } from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 import * as kanjiAction from '../../redux/kanji/kanji.actions';
 
