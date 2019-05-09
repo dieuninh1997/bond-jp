@@ -44,9 +44,6 @@ class AlphabetListScreen extends React.PureComponent {
 
   handleAlphabetOpened=(item) => {
     const { componentId } = this.props;
-    console.log('================================================');
-    console.log('alphabet open ', item.LoaiChu);
-    console.log('================================================');
     Navigation.push(componentId, {
       component: {
         name: 'bondjp.AlphabetScreen',
@@ -72,9 +69,6 @@ class AlphabetListScreen extends React.PureComponent {
 
   render() {
     const { alphabetList } = this.props;
-    console.log('================================================');
-    console.log('props', this.props);
-    console.log('================================================');
     return (
       <View style={styles.container}>
         <FlatList
@@ -98,6 +92,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(AlphabetListScreen);
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
 
   itemContainer: {

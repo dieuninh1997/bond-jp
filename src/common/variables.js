@@ -9,6 +9,7 @@ export const Colors = {
   green: '#00FBB7',
   white: '#FFFFFF',
   black: '#000000',
+  gray: '#979797',
   violet: '#B510DA',
   lightenBlue: '#458ADA',
   warning: '#f3c12e',

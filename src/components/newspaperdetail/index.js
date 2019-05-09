@@ -1,15 +1,12 @@
 import React from 'react';
 import {
-  View, Text, FlatList, Image, TouchableOpacity, Dimensions,
+  View, Text, Image, Dimensions, ScrollView,
 } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
-import { ScaledSheet, moderateScale } from 'react-native-size-matters';
-import _ from 'lodash';
+import { ScaledSheet } from 'react-native-size-matters';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
-class LetterScreen extends React.PureComponent {
+class NewspaperDetailScreen extends React.PureComponent {
   static options(passProps) {
     return {
       topBar: {
@@ -18,7 +15,7 @@ class LetterScreen extends React.PureComponent {
         hideOnScroll: false,
         drawBehind: false,
         title: {
-          text: passProps.LoaiChu,
+          text: 'Đọc báo',
           fontSize: 18,
           fontWeight: 'bold',
           color: Colors.info,
@@ -42,23 +39,19 @@ class LetterScreen extends React.PureComponent {
   }
 
   render() {
-    const { letter } = this.props;
+    const { item } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.letterText}>{letter.TenChu}</Text>
-        <View style={styles.letterImageContainer}>
-          <Image
-            style={styles.image}
-            source={{ uri: `data:image/png;base64,${letter.HinhAnh}` }}
-            resizeMode="stretch"
-          />
-        </View>
+        <Text style={styles.title}>{item.TieuDe}</Text>
+        <ScrollView style={styles.content}>
+          <Text style={styles.contentText}>{item.NoiDung}</Text>
+        </ScrollView>
 
       </View>
     );
   }
 }
-export default LetterScreen;
+export default NewspaperDetailScreen;
 const { width, height } = Dimensions.get('window');
 const styles = ScaledSheet.create({
   container: {
@@ -67,19 +60,21 @@ const styles = ScaledSheet.create({
     backgroundColor: Colors.white,
   },
 
-  letterText: {
+  title: {
     color: Colors.black,
-    fontSize: FontSizes.large,
-  },
-  letterImageContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize: FontSizes.p,
+    fontWeight: 'bold',
   },
 
-  image: {
-    width: width * 0.8,
-    height: width * 0.8,
+  content: {
+    flex: 1,
+    marginTop: Sizes.s2,
+  },
+
+  contentText: {
+    flex: 1,
+    color: Colors.black,
+    fontSize: FontSizes.small,
   },
 
 });
