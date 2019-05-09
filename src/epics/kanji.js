@@ -1,17 +1,17 @@
 import { ofType } from 'redux-observable';
 import { mergeMap, map } from 'rxjs/operators';
-import * as alphabetTypes from '../redux/alphabet/alphabet.types';
+import * as kanjiTypes from '../redux/kanji/kanji.types';
 import db from '../configs/database.config';
 
-// get all letters in alphabet
-const getLettersAlphabet = action$ => action$.pipe(
-  ofType(alphabetTypes.GET_LETTERS_ALPHABET),
+
+// get all letters in kanji
+const getKanji = action$ => action$.pipe(
+  ofType(kanjiTypes.GET_KANJI),
   mergeMap((action) => {
     const { callback } = action.payload;
-
     return new Promise(((resolve, reject) => {
       db.transaction((txn) => {
-        txn.executeSql('select * from ChuCai;', [], (tx, results) => {
+        txn.executeSql('select * from Kanji;', [], (tx, results) => {
           const tmp = [];
           if (results.rows.length > 0) {
             for (let i = 0; i < results.rows.length; i++) {
@@ -29,22 +29,26 @@ const getLettersAlphabet = action$ => action$.pipe(
   map((res) => {
     if (res && res.error) {
       res.callback(res.error);
+      console.log('================================================');
+      console.log('loi kanji', res);
+      console.log('================================================');
       return {
-        type: alphabetTypes.GET_LETTERS_ALPHABET_FAIL,
+        type: kanjiTypes.GET_KANJI_FAIL,
         payload: res.error,
       };
     }
     res.callback();
     console.log('================================================');
-    console.log('success alphabet', res);
+    console.log('success kanji', res);
     console.log('================================================');
     return {
-      type: alphabetTypes.GET_LETTERS_ALPHABET_SUCCESS,
+      type: kanjiTypes.GET_KANJI_SUCCESS,
       payload: res.data,
     };
   }),
 );
 
 export {
-  getLettersAlphabet,
+  // eslint-disable-next-line import/prefer-default-export
+  getKanji,
 };

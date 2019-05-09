@@ -6,9 +6,10 @@ import { Navigation } from 'react-native-navigation';
 import SplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ScaledSheet, moderateScale } from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 import * as alphabetListAction from '../../redux/alphabetlist/alphabetlist.actions';
 import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
+import * as kanjiAction from '../../redux/kanji/kanji.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -58,7 +59,12 @@ class MainScreen extends React.PureComponent {
 
 
   componentWillMount() {
-    const { alphabetListActions, alphabetActions } = this.props;
+    const { alphabetListActions, alphabetActions, kanjiActions } = this.props;
+    kanjiActions.getKanji({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
     alphabetListActions.getAlphabetList({}, (error) => {
       if (error) {
         console.log('getAlphabetList error', error);
@@ -94,7 +100,7 @@ class MainScreen extends React.PureComponent {
         component: {
           name: 'bondjp.KanjiScreen',
           passProps: {
-            text: '',
+            text: 'Kanji',
           },
         },
       });
@@ -205,12 +211,18 @@ class MainScreen extends React.PureComponent {
     );
   }
 }
-const mapStateToProps = state => ({ alphabetList: state.alphabetList });
+const mapStateToProps = (state) => {
+  console.log('================================================');
+  console.log('state main ', state);
+  console.log('================================================');
+  return { alphabetList: state.alphabetList };
+};
 
 
 const mapDispatchToProps = dispatch => ({
   alphabetListActions: bindActionCreators(alphabetListAction, dispatch),
   alphabetActions: bindActionCreators(alphabetAction, dispatch),
+  kanjiActions: bindActionCreators(kanjiAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

@@ -66,14 +66,7 @@ class AlphabetScreen extends React.PureComponent {
 
   render() {
     const { alphabets, item } = this.props;
-
     const letters = _.filter(alphabets, { IdLoaiChu: item.IdLoaiChu });
-    console.log(alphabets);
-    console.log('================================================');
-    console.log('alphabets', alphabets);
-    console.log('item', item);
-    console.log('letters', letters);
-    console.log('================================================');
 
     return (
       <View style={styles.container}>
@@ -101,6 +94,7 @@ const { width, height } = Dimensions.get('window');
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white,
   },
 
   letterContainer: {

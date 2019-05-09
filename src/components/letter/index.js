@@ -64,6 +64,7 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     padding: Sizes.s2,
+    backgroundColor: Colors.white,
   },
 
   letterText: {
