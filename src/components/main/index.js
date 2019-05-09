@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity,
+  View, Text, TouchableOpacity, BackHandler, Alert,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import SplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ScaledSheet } from 'react-native-size-matters';
 import * as alphabetListAction from '../../redux/alphabetlist/alphabetlist.actions';
 import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
 import * as kanjiAction from '../../redux/kanji/kanji.actions';
+import * as newspaperAction from '../../redux/newspaper/newspaper.actions';
+
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -33,10 +34,9 @@ class MainScreen extends React.PureComponent {
           color: Colors.darkenPrimary,
           translucent: false,
         },
-        // leftButtons: {
-        //   id: 'buttonInstaHome',
-        //   icon: require('../../assets/images/icon_insta.png'),
-        // },
+        backButton: {
+          visible: false,
+        },
       },
     };
   }
@@ -57,14 +57,28 @@ class MainScreen extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  onBackPress = () => true // <---- make sure you return true.
+
 
   componentWillMount() {
-    const { alphabetListActions, alphabetActions, kanjiActions } = this.props;
+    const {
+      alphabetListActions, alphabetActions, kanjiActions, newspaperActions,
+    } = this.props;
+
     kanjiActions.getKanji({}, (error) => {
       if (error) {
         console.log('getKanji error', error);
       }
     });
+
     alphabetListActions.getAlphabetList({}, (error) => {
       if (error) {
         console.log('getAlphabetList error', error);
@@ -75,10 +89,11 @@ class MainScreen extends React.PureComponent {
         console.log('getLettersAlphabet error', error);
       }
     });
-  }
-
-  componentDidMount() {
-    SplashScreen.hide();
+    newspaperActions.getNewspapers({}, (error) => {
+      if (error) {
+        console.log('getLettersAlphabet error', error);
+      }
+    });
   }
 
   onItemPressed = (name) => {
@@ -140,7 +155,7 @@ class MainScreen extends React.PureComponent {
         component: {
           name: 'bondjp.NewspapersScreen',
           passProps: {
-            text: '',
+            text: 'Đọc báo',
           },
         },
       });
@@ -211,18 +226,14 @@ class MainScreen extends React.PureComponent {
     );
   }
 }
-const mapStateToProps = (state) => {
-  console.log('================================================');
-  console.log('state main ', state);
-  console.log('================================================');
-  return { alphabetList: state.alphabetList };
-};
+const mapStateToProps = state => ({ alphabetList: state.alphabetList });
 
 
 const mapDispatchToProps = dispatch => ({
   alphabetListActions: bindActionCreators(alphabetListAction, dispatch),
   alphabetActions: bindActionCreators(alphabetAction, dispatch),
   kanjiActions: bindActionCreators(kanjiAction, dispatch),
+  newspaperActions: bindActionCreators(newspaperAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
@@ -231,6 +242,7 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: Colors.white,
   },
   content: {
     flex: 1,

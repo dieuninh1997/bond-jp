@@ -29,18 +29,12 @@ const getKanji = action$ => action$.pipe(
   map((res) => {
     if (res && res.error) {
       res.callback(res.error);
-      console.log('================================================');
-      console.log('loi kanji', res);
-      console.log('================================================');
       return {
         type: kanjiTypes.GET_KANJI_FAIL,
         payload: res.error,
       };
     }
     res.callback();
-    console.log('================================================');
-    console.log('success kanji', res);
-    console.log('================================================');
     return {
       type: kanjiTypes.GET_KANJI_SUCCESS,
       payload: res.data,

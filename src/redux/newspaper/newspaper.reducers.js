@@ -1,15 +1,15 @@
-import * as types from './kanji.types';
+import * as types from './newspaper.types';
 
 const initState = [];
 export default function init(state = initState, action) {
   switch (action.type) {
-  case types.GET_KANJI:
+  case types.GET_NEWSPAPERS:
     return { ...state };
-  case types.GET_KANJI_FAIL:
+  case types.GET_NEWSPAPERS_FAIL:
     return {
       error: action.payload,
     };
-  case types.GET_KANJI_SUCCESS:
+  case types.GET_NEWSPAPERS_SUCCESS:
     return [
       ...action.payload,
     ];

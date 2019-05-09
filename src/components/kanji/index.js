@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
 import { ScaledSheet } from 'react-native-size-matters';
-import { Colors, FontSizes, Sizes } from '../../common/variables';
+import { Colors, FontSizes } from '../../common/variables';
 import * as kanjiAction from '../../redux/kanji/kanji.actions';
 
 class KanjiScreen extends React.PureComponent {
@@ -54,6 +54,19 @@ class KanjiScreen extends React.PureComponent {
     });
   }
 
+  hanldeLetterPressed=(item) => {
+    const { componentId } = this.props;
+    Navigation.push(componentId, {
+      component: {
+        name: 'bondjp.KanjiDetailScreen',
+        passProps: {
+          item,
+          text: 'Kanji',
+        },
+      },
+    });
+  }
+
   _renderItem=({ item }) => (
     <TouchableOpacity onPress={() => this.hanldeLetterPressed(item)}>
       <View style={styles.kanjiContainer}>
@@ -64,9 +77,6 @@ class KanjiScreen extends React.PureComponent {
 
   render() {
     const { kanjiList } = this.props;
-    console.log('================================================');
-    console.log('kanji', kanjiList);
-    console.log('================================================');
     return (
       <View style={styles.container}>
         <FlatList
