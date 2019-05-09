@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import * as alphabetListAction from '../../redux/alphabetlist/alphabetlist.actions';
 import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
+import * as newspaperAction from '../../redux/newspaper/newspaper.actions';
+
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -58,13 +60,18 @@ class MainScreen extends React.PureComponent {
 
 
   componentWillMount() {
-    const { alphabetListActions, alphabetActions } = this.props;
+    const { alphabetListActions, alphabetActions, newspaperActions } = this.props;
     alphabetListActions.getAlphabetList({}, (error) => {
       if (error) {
         console.log('getAlphabetList error', error);
       }
     });
     alphabetActions.getLettersAlphabet({}, (error) => {
+      if (error) {
+        console.log('getLettersAlphabet error', error);
+      }
+    });
+    newspaperActions.getNewspapers({}, (error) => {
       if (error) {
         console.log('getLettersAlphabet error', error);
       }
@@ -134,7 +141,7 @@ class MainScreen extends React.PureComponent {
         component: {
           name: 'bondjp.NewspapersScreen',
           passProps: {
-            text: '',
+            text: 'Đọc báo',
           },
         },
       });
@@ -205,12 +212,18 @@ class MainScreen extends React.PureComponent {
     );
   }
 }
-const mapStateToProps = state => ({ alphabetList: state.alphabetList });
+const mapStateToProps = (state) => {
+  console.log('================================================');
+  console.log('MAIN state', state);
+  console.log('================================================');
+  return { alphabetList: state.alphabetList };
+};
 
 
 const mapDispatchToProps = dispatch => ({
   alphabetListActions: bindActionCreators(alphabetListAction, dispatch),
   alphabetActions: bindActionCreators(alphabetAction, dispatch),
+  newspaperActions: bindActionCreators(newspaperAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
@@ -219,6 +232,7 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: Colors.white,
   },
   content: {
     flex: 1,

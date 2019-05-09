@@ -1,0 +1,4 @@
+// get all newspaper
+export const GET_NEWSPAPERS = 'GET_NEWSPAPERS';
+export const GET_NEWSPAPERS_SUCCESS = 'GET_NEWSPAPERS_SUCCESS';
+export const GET_NEWSPAPERS_FAIL = 'GET_NEWSPAPERS_FAIL';
