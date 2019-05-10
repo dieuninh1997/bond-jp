@@ -57,15 +57,15 @@ class MainScreen extends React.PureComponent {
     };
   }
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-  }
+  // componentDidMount() {
+  //   BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+  // }
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
-  }
+  // componentWillUnmount() {
+  //   BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  // }
 
-  onBackPress = () => true // <---- make sure you return true.
+  // onBackPress = () => true // <---- make sure you return true.
 
 
   componentWillMount() {

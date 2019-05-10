@@ -6,18 +6,24 @@ registerScreens();
 Navigation.events().registerAppLaunchedListener(() => {
   Navigation.setRoot({
     root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'bondjp.WelcomeScreen',
-              options: {
-                index: 0,
-              },
-            },
-          },
-        ],
+      component: {
+        name: 'bondjp.WelcomeScreen',
+        options: {
+          index: 0,
+        },
       },
+      // stack: {
+      //   children: [
+      //     {
+      //       component: {
+      //         name: 'bondjp.WelcomeScreen',
+      //         options: {
+      //           index: 0,
+      //         },
+      //       },
+      //     },
+      //   ],
+      // },
     },
   });
 });

@@ -11,7 +11,7 @@ import { ScaledSheet } from 'react-native-size-matters';
 import LottieView from 'lottie-react-native';
 
 import { Colors, FontSizes, Sizes } from '../../common/variables';
-
+import { goMain } from '../../common/navigation';
 
 class WelcomeScreen extends React.PureComponent {
   static options(passProps) {
@@ -35,22 +35,12 @@ class WelcomeScreen extends React.PureComponent {
 
   componentDidMount() {
     const { progress } = this.state;
-    const { componentId } = this.props;
 
     Animated.timing(progress, {
       toValue: 1,
       duration: 5000,
       easing: Easing.linear,
-    }).start(() => {
-      Navigation.push(componentId, {
-        component: {
-          name: 'bondjp.MainScreen',
-          passProps: {
-            text: 'Ứng dụng học tiếng nhật',
-          },
-        },
-      });
-    });
+    }).start(goMain);
   }
 
   render() {
