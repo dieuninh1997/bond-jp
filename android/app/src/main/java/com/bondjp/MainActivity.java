@@ -19,9 +19,4 @@ public class MainActivity extends NavigationActivity {
     // protected String getMainComponentName() {
     //     return "bondjp";
     // }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.show(this, R.style.SplashScreenTheme);  // here
-        super.onCreate(savedInstanceState);
-    }
 }

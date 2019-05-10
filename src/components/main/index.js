@@ -1,16 +1,17 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity,
+  View, Text, TouchableOpacity,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import SplashScreen from 'react-native-splash-screen';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ScaledSheet, moderateScale } from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 import * as alphabetListAction from '../../redux/alphabetlist/alphabetlist.actions';
 import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
+import * as kanjiAction from '../../redux/kanji/kanji.actions';
 import * as newspaperAction from '../../redux/newspaper/newspaper.actions';
-
+import * as newwordAction from '../../redux/newword/newword.actions';
+import * as subjectAction from '../../redux/subject/subject.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -34,10 +35,9 @@ class MainScreen extends React.PureComponent {
           color: Colors.darkenPrimary,
           translucent: false,
         },
-        // leftButtons: {
-        //   id: 'buttonInstaHome',
-        //   icon: require('../../assets/images/icon_insta.png'),
-        // },
+        backButton: {
+          visible: false,
+        },
       },
     };
   }
@@ -58,9 +58,34 @@ class MainScreen extends React.PureComponent {
     };
   }
 
-
   componentWillMount() {
-    const { alphabetListActions, alphabetActions, newspaperActions } = this.props;
+    const {
+      alphabetListActions,
+      alphabetActions,
+      kanjiActions,
+      newspaperActions,
+      newwordActions,
+      subjectActions,
+    } = this.props;
+
+    subjectActions.getSubjects({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
+
+    newwordActions.getNewwords({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
+
+    kanjiActions.getKanji({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
+
     alphabetListActions.getAlphabetList({}, (error) => {
       if (error) {
         console.log('getAlphabetList error', error);
@@ -76,10 +101,6 @@ class MainScreen extends React.PureComponent {
         console.log('getLettersAlphabet error', error);
       }
     });
-  }
-
-  componentDidMount() {
-    SplashScreen.hide();
   }
 
   onItemPressed = (name) => {
@@ -101,7 +122,7 @@ class MainScreen extends React.PureComponent {
         component: {
           name: 'bondjp.KanjiScreen',
           passProps: {
-            text: '',
+            text: 'Kanji',
           },
         },
       });
@@ -119,9 +140,9 @@ class MainScreen extends React.PureComponent {
     case data[3]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.NewwordsScreen',
+          name: 'bondjp.SubjectScreen',
           passProps: {
-            text: '',
+            text: 'Từ vựng',
           },
         },
       });
@@ -212,18 +233,14 @@ class MainScreen extends React.PureComponent {
     );
   }
 }
-const mapStateToProps = (state) => {
-  console.log('================================================');
-  console.log('MAIN state', state);
-  console.log('================================================');
-  return { alphabetList: state.alphabetList };
-};
-
-
+const mapStateToProps = state => ({ alphabetList: state.alphabetList });
 const mapDispatchToProps = dispatch => ({
   alphabetListActions: bindActionCreators(alphabetListAction, dispatch),
   alphabetActions: bindActionCreators(alphabetAction, dispatch),
+  kanjiActions: bindActionCreators(kanjiAction, dispatch),
   newspaperActions: bindActionCreators(newspaperAction, dispatch),
+  newwordActions: bindActionCreators(newwordAction, dispatch),
+  subjectActions: bindActionCreators(subjectAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

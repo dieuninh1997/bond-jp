@@ -1,19 +1,17 @@
+// chu de tu vung
 import React from 'react';
 import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Dimensions,
+  View, Text, FlatList, TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
 import { ScaledSheet } from 'react-native-size-matters';
-import { Colors, FontSizes } from '../../common/variables';
-import * as kanjiAction from '../../redux/kanji/kanji.actions';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as subjectAction from '../../redux/subject/subject.actions';
+import { Colors, FontSizes, Sizes } from '../../common/variables';
 
-class KanjiScreen extends React.PureComponent {
+class SubjectScreen extends React.PureComponent {
   static options(passProps) {
     return {
       topBar: {
@@ -45,81 +43,79 @@ class KanjiScreen extends React.PureComponent {
     Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
   }
 
-  componentDidMount() {
-    const { kanjiActions } = this.props;
-    kanjiActions.getKanji({}, (error) => {
-      if (error) {
-        console.log('getKanji error ==>', error);
-      }
-    });
-  }
-
-  hanldeLetterPressed=(item) => {
+  handleSubjectTypePressed=(item) => {
     const { componentId } = this.props;
     Navigation.push(componentId, {
       component: {
-        name: 'bondjp.KanjiDetailScreen',
+        name: 'bondjp.NewwordsScreen',
         passProps: {
           item,
-          text: 'Kanji',
+          text: 'Từ vựng',
+        },
+        options: {
+          index: 0,
         },
       },
     });
   }
 
   _renderItem=({ item }) => (
-    <TouchableOpacity onPress={() => this.hanldeLetterPressed(item)}>
-      <View style={styles.kanjiContainer}>
-        <Text style={styles.kanjiText}>{item.TenChu}</Text>
+    <TouchableOpacity onPress={() => this.handleSubjectTypePressed(item)}>
+      <View style={styles.itemContainer}>
+        <Text style={styles.itemName}>{item.LoaiTuVung}</Text>
+        <Ionicons name="ios-arrow-forward" style={styles.iconArrow} />
       </View>
     </TouchableOpacity>
+
   )
 
   render() {
-    const { kanjiList } = this.props;
+    const { subjects } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
-          data={kanjiList}
-          numColumns={5}
+          data={subjects}
           renderItem={this._renderItem}
-          keyExtractor={(e, index) => `${e.IdChuCai} - ${index}`}
+          keyExtractor={(item, index) => `${item.Id} - ${index}`}
           extraData={this.props}
         />
       </View>
     );
   }
 }
-const mapStateToProps = state => ({
-  kanjiList: state.kanjiList,
-});
+const mapStateToProps = state => ({ subjects: state.subjects });
+
 
 const mapDispatchToProps = dispatch => ({
-  kanjiActions: bindActionCreators(kanjiAction, dispatch),
+  subjectActions: bindActionCreators(subjectAction, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(KanjiScreen);
-
-const { width, height } = Dimensions.get('window');
+export default connect(mapStateToProps, mapDispatchToProps)(SubjectScreen);
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
   },
 
-  kanjiContainer: {
-    width: width / 5,
-    height: width / 5,
-    borderRightWidth: 1,
-    borderRightColor: Colors.black,
+  itemContainer: {
+    flex: 1,
+    flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: Colors.black,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: Sizes.s3,
+    paddingHorizontal: Sizes.s2,
   },
 
-  kanjiText: {
+  itemName: {
+    flex: 1,
+    fontSize: FontSizes.p,
     color: Colors.black,
-    fontSize: FontSizes.h2,
+  },
+
+  iconArrow: {
+    fontSize: FontSizes.p,
+    color: Colors.black,
   },
 });

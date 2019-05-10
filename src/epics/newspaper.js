@@ -13,17 +13,11 @@ const getNewspapers = action$ => action$.pipe(
       db.transaction((txn) => {
         txn.executeSql('select * from Bao;', [], (tx, results) => {
           const tmp = [];
-          console.log('================================================');
-          console.log('newspaper result', results);
-          console.log('================================================');
           if (results.rows.length > 0) {
             for (let i = 0; i < results.rows.length; i++) {
               tmp.push(results.rows.item(i));
             }
           }
-          console.log('================================================');
-          console.log('newspaper tmp', tmp);
-          console.log('================================================');
           resolve({
             data: tmp,
             callback,
@@ -33,9 +27,6 @@ const getNewspapers = action$ => action$.pipe(
     }));
   }),
   map((res) => {
-    console.log('================================================');
-    console.log('newspaper res', res);
-    console.log('================================================');
     if (res && res.error) {
       res.callback(res.error);
       return {

@@ -66,7 +66,6 @@ class AlphabetScreen extends React.PureComponent {
 
   render() {
     const { alphabets, item } = this.props;
-
     const letters = _.filter(alphabets, { IdLoaiChu: item.IdLoaiChu });
 
     return (

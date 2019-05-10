@@ -1,17 +1,16 @@
 import { ofType } from 'redux-observable';
 import { mergeMap, map } from 'rxjs/operators';
-import * as alphabetTypes from '../redux/alphabet/alphabet.types';
+import * as subjectTypes from '../redux/subject/subject.types';
 import db from '../configs/database.config';
 
-// get all letters in alphabet
-const getLettersAlphabet = action$ => action$.pipe(
-  ofType(alphabetTypes.GET_LETTERS_ALPHABET),
+const getSubjects = action$ => action$.pipe(
+  ofType(subjectTypes.GET_SUBJECTS),
   mergeMap((action) => {
     const { callback } = action.payload;
 
     return new Promise(((resolve, reject) => {
       db.transaction((txn) => {
-        txn.executeSql('select * from ChuCai;', [], (tx, results) => {
+        txn.executeSql('select * from ChuDeTuVung;', [], (tx, results) => {
           const tmp = [];
           if (results.rows.length > 0) {
             for (let i = 0; i < results.rows.length; i++) {
@@ -30,18 +29,19 @@ const getLettersAlphabet = action$ => action$.pipe(
     if (res && res.error) {
       res.callback(res.error);
       return {
-        type: alphabetTypes.GET_LETTERS_ALPHABET_FAIL,
+        type: subjectTypes.GET_SUBJECTS_FAIL,
         payload: res.error,
       };
     }
     res.callback();
     return {
-      type: alphabetTypes.GET_LETTERS_ALPHABET_SUCCESS,
+      type: subjectTypes.GET_SUBJECTS_SUCCESS,
       payload: res.data,
     };
   }),
 );
 
+
 export {
-  getLettersAlphabet,
+  getSubjects,
 };
