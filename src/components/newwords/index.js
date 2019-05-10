@@ -81,13 +81,16 @@ class NewwordScreen extends React.PureComponent {
     const nw = newwordsOfType[index];// .get(index);
     return (
       <View style={styles.container}>
-        <Text style={styles.newword}>{nw.TuVung}</Text>
+
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
             source={{ uri: `data:image/png;base64,${nw.HinhAnh}` }}
             resizeMode="stretch"
           />
+          <View style={styles.separator} />
+          <Text style={styles.newword}>{nw.TuVung}</Text>
+          <Text style={styles.meaning}>{nw.Nghia}</Text>
         </View>
         <View style={styles.buttonContainer}>
           {/* previous button */}
@@ -121,6 +124,13 @@ const styles = ScaledSheet.create({
   },
   newword: {
     color: Colors.black,
+    fontSize: FontSizes.h5,
+    marginVertical: Sizes.s2,
+    fontWeight: 'bold',
+  },
+
+  meaning: {
+    color: Colors.black,
     fontSize: FontSizes.p,
     marginBottom: Sizes.s4,
   },
@@ -129,6 +139,17 @@ const styles = ScaledSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    margin: Sizes.s6,
+    borderRadius: Sizes.s1,
+    backgroundColor: Colors.white,
+    elevation: Sizes.s1,
+    shadowOpacity: 0.5,
+  },
+
+  separator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: Colors.gray,
   },
 
   image: {

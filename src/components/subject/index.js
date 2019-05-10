@@ -50,7 +50,7 @@ class SubjectScreen extends React.PureComponent {
         name: 'bondjp.NewwordsScreen',
         passProps: {
           item,
-          text: 'Từ vựng',
+          text: item.LoaiTuVung,
         },
         options: {
           index: 0,
