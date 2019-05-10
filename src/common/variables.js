@@ -19,6 +19,7 @@ export const Colors = {
 };
 
 export const FontSizes = {
+  extrLarge: moderateScale(36),
   large: moderateScale(32),
   h1: moderateScale(28),
   h2: moderateScale(26),

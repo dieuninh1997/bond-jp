@@ -18,6 +18,7 @@ import NewspaperDetailScreen from './newspaperdetail';
 import NewwordsScreen from './newwords';
 import PracticeScreen from './practice';
 import WelcomeScreen from './welcome';
+import SubjectScreen from './subject';
 
 
 const screens = {
@@ -35,5 +36,6 @@ const screens = {
   NewspaperDetailScreen,
   KanjiDetailScreen,
   WelcomeScreen,
+  SubjectScreen,
 };
 export default screens;

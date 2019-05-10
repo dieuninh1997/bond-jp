@@ -1,0 +1,4 @@
+// get newwords
+export const GET_SUBJECTS = 'GET_SUBJECTS';
+export const GET_SUBJECTS_SUCCESS = 'GET_SUBJECTS_SUCCESS';
+export const GET_SUBJECTS_FAIL = 'GET_SUBJECTS_FAIL';

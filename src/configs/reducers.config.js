@@ -3,6 +3,8 @@ import {
   alphabetListReducer,
   kanjiReducer,
   newspapersReducer,
+  newworsdReducer,
+  subjectReducer,
 } from '../redux';
 
 const rootReducer = {
@@ -10,6 +12,8 @@ const rootReducer = {
   alphabetList: alphabetListReducer,
   kanjiList: kanjiReducer,
   newspapers: newspapersReducer,
+  newwords: newworsdReducer,
+  subjects: subjectReducer,
 };
 
 export default rootReducer;

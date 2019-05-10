@@ -73,9 +73,9 @@ const styles = ScaledSheet.create({
 
   appName: {
     color: Colors.info,
-    fontSize: FontSizes.large,
+    fontSize: FontSizes.extrLarge,
     position: 'absolute',
-    top: width / 2,
+    top: width * 0.6,
   },
 
   anim: {

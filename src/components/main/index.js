@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, TouchableOpacity, BackHandler, Alert,
+  View, Text, TouchableOpacity,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
@@ -10,7 +10,8 @@ import * as alphabetListAction from '../../redux/alphabetlist/alphabetlist.actio
 import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
 import * as kanjiAction from '../../redux/kanji/kanji.actions';
 import * as newspaperAction from '../../redux/newspaper/newspaper.actions';
-
+import * as newwordAction from '../../redux/newword/newword.actions';
+import * as subjectAction from '../../redux/subject/subject.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -57,21 +58,27 @@ class MainScreen extends React.PureComponent {
     };
   }
 
-  // componentDidMount() {
-  //   BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-  // }
-
-  // componentWillUnmount() {
-  //   BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
-  // }
-
-  // onBackPress = () => true // <---- make sure you return true.
-
-
   componentWillMount() {
     const {
-      alphabetListActions, alphabetActions, kanjiActions, newspaperActions,
+      alphabetListActions,
+      alphabetActions,
+      kanjiActions,
+      newspaperActions,
+      newwordActions,
+      subjectActions,
     } = this.props;
+
+    subjectActions.getSubjects({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
+
+    newwordActions.getNewwords({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
 
     kanjiActions.getKanji({}, (error) => {
       if (error) {
@@ -133,9 +140,9 @@ class MainScreen extends React.PureComponent {
     case data[3]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.NewwordsScreen',
+          name: 'bondjp.SubjectScreen',
           passProps: {
-            text: '',
+            text: 'Từ vựng',
           },
         },
       });
@@ -227,13 +234,13 @@ class MainScreen extends React.PureComponent {
   }
 }
 const mapStateToProps = state => ({ alphabetList: state.alphabetList });
-
-
 const mapDispatchToProps = dispatch => ({
   alphabetListActions: bindActionCreators(alphabetListAction, dispatch),
   alphabetActions: bindActionCreators(alphabetAction, dispatch),
   kanjiActions: bindActionCreators(kanjiAction, dispatch),
   newspaperActions: bindActionCreators(newspaperAction, dispatch),
+  newwordActions: bindActionCreators(newwordAction, dispatch),
+  subjectActions: bindActionCreators(subjectAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
