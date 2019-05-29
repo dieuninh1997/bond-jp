@@ -5,6 +5,7 @@ import {
   newspapersReducer,
   newworsdReducer,
   subjectReducer,
+  communicationListReducer,
 } from '../redux';
 
 const rootReducer = {
@@ -14,6 +15,7 @@ const rootReducer = {
   newspapers: newspapersReducer,
   newwords: newworsdReducer,
   subjects: subjectReducer,
+  communicationList: communicationListReducer,
 };
 
 export default rootReducer;

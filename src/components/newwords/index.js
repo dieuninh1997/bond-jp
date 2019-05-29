@@ -47,9 +47,6 @@ class NewwordScreen extends React.PureComponent {
   }
 
   hanldePreviousPressed=() => {
-    console.log('================================================');
-    console.log('back nw');
-    console.log('================================================');
     const { newwords, item } = this.props;
     const { index } = this.state;
     const newwordsOfType = _.filter(newwords, { IdLoai: item.IdLoai });
@@ -61,9 +58,6 @@ class NewwordScreen extends React.PureComponent {
   }
 
   hanldeNextPressed=() => {
-    console.log('================================================');
-    console.log('next nw');
-    console.log('================================================');
     const { newwords, item } = this.props;
     const { index } = this.state;
     const newwordsOfType = _.filter(newwords, { IdLoai: item.IdLoai });

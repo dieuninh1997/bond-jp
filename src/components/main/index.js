@@ -12,6 +12,7 @@ import * as kanjiAction from '../../redux/kanji/kanji.actions';
 import * as newspaperAction from '../../redux/newspaper/newspaper.actions';
 import * as newwordAction from '../../redux/newword/newword.actions';
 import * as subjectAction from '../../redux/subject/subject.actions';
+import * as communicationListAction from '../../redux/communicationlist/communicationlist.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -66,7 +67,14 @@ class MainScreen extends React.PureComponent {
       newspaperActions,
       newwordActions,
       subjectActions,
+      communicationListActions,
     } = this.props;
+
+    communicationListActions.getCommunicationList({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
 
     subjectActions.getSubjects({}, (error) => {
       if (error) {
@@ -150,9 +158,9 @@ class MainScreen extends React.PureComponent {
     case data[4]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.CommunicationScreen',
+          name: 'bondjp.CommunicationListScreen',
           passProps: {
-            text: '',
+            text: 'Nghe nhạc',
           },
         },
       });
@@ -241,6 +249,7 @@ const mapDispatchToProps = dispatch => ({
   newspaperActions: bindActionCreators(newspaperAction, dispatch),
   newwordActions: bindActionCreators(newwordAction, dispatch),
   subjectActions: bindActionCreators(subjectAction, dispatch),
+  communicationListActions: bindActionCreators(communicationListAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
