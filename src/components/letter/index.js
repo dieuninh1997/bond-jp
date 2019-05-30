@@ -1,12 +1,9 @@
 import React from 'react';
 import {
-  View, Text, FlatList, Image, TouchableOpacity, Dimensions,
+  View, Text, Image, Dimensions,
 } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
-import { ScaledSheet, moderateScale } from 'react-native-size-matters';
-import _ from 'lodash';
+import { ScaledSheet } from 'react-native-size-matters';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 class LetterScreen extends React.PureComponent {
