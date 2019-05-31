@@ -13,7 +13,7 @@ export default class GlobalAudio extends React.PureComponent {
     super(props);
     this.state = {
       speakerState: 'mute',
-      playState: 'paused',
+      playState: 'playing',
       playSeconds: 0,
       duration: 0,
     };
@@ -21,7 +21,7 @@ export default class GlobalAudio extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.play();
+    // this.play();
     this.timeout = setInterval(() => {
       if (this.sound
         && this.sound.isLoaded()

@@ -3,6 +3,7 @@ package com.bondjp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -44,6 +45,7 @@ public class MainApplication extends NavigationApplication {
               // eg. new VectorIconsPackage()
               new SQLitePluginPackage(),   // register SQLite Plugin here
               new MainReactPackage(),
+            new RNFSPackage(),
             new RNFetchBlobPackage(),
             new RNSoundPackage(),
               new SplashScreenReactPackage(),
