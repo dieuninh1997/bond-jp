@@ -1,11 +1,10 @@
 import React from 'react';
 import {
-  View, Image, Text, Slider, TouchableOpacity, Platform, Alert,
+  View, Text, Slider, TouchableOpacity, Alert,
 } from 'react-native';
 import { ScaledSheet } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound';
-import { Navigation } from 'react-native-navigation';
 import { Sizes, Colors, FontSizes } from './variables';
 
 export default class GlobalAudio extends React.PureComponent {
@@ -71,7 +70,8 @@ export default class GlobalAudio extends React.PureComponent {
       this.sound = new Sound(filepath, Sound.MAIN_BUNDLE, (error) => {
         if (error) {
           console.log('failed to load the sound', error);
-          Alert.alert('Notice', 'audio file error. (Error code : 1)');
+          // Alert.alert('Notice', 'audio file error. (Error code : 1)');
+          Alert.alert('Notice', 'Please download the audio file before listening!');
           this.setState({ playState: 'paused' });
         } else {
           this.setState({ playState: 'playing', duration: this.sound.getDuration() });
@@ -165,21 +165,21 @@ export default class GlobalAudio extends React.PureComponent {
 }
 const styles = ScaledSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: Colors.white,
+    padding: '15@s',
+    backgroundColor: Colors.darkenPrimary,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   iconPlayPause: {
-    fontSize: FontSizes.p,
-    color: Colors.black,
+    fontSize: FontSizes.h2,
+    color: Colors.white,
     marginHorizontal: Sizes.s2,
   },
   time: {
     fontSize: FontSizes.p,
-    color: Colors.black,
+    color: Colors.white,
   },
   slider: {
     flex: 1,

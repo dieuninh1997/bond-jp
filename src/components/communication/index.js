@@ -1,16 +1,16 @@
 import React from 'react';
 import {
-  View, Text, Modal, TouchableOpacity, Dimensions, PermissionsAndroid,
+  View, Text, Modal, TouchableOpacity, PermissionsAndroid, WebView,
 } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { ScaledSheet } from 'react-native-size-matters';
 import { Navigation } from 'react-native-navigation';
-import RNFS from 'react-native-fs';
+import { RNToasty } from 'react-native-toasty';
 import GlobalAudio from '../../common/GlobalAudio';
 import { Sizes, Colors, FontSizes } from '../../common/variables';
 
 class CommunicationScreen extends React.PureComponent {
-  static options(passProps) {
+  static options() {
     return {
       topBar: {
         visible: true,
@@ -32,6 +32,12 @@ class CommunicationScreen extends React.PureComponent {
         backButton: {
           color: Colors.white,
         },
+        rightButtons: [
+          {
+            id: 'buttonDownload',
+            icon: require('../../assets/images/ic_downloads.png'),
+          },
+        ],
       },
     };
   }
@@ -41,19 +47,24 @@ class CommunicationScreen extends React.PureComponent {
     Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     this.state = {
       showModal: true,
+      isDownloadSuccess: false,
     };
   }
 
-  componentDidMount() {
-    //
-
+  navigationButtonPressed({ buttonId }) {
+    if (buttonId === 'buttonDownload') {
+      console.log('================================================');
+      console.log('buttonDownload');
+      console.log('================================================');
+      this.setState({ showModal: true });
+    }
   }
 
   hanldeCloseModal=() => {
     this.setState({ showModal: false });
   }
 
-  async requestPermission=() =>{
+  requestPermission=async () => {
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -66,60 +77,72 @@ class CommunicationScreen extends React.PureComponent {
         },
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the camera');
-        return true
-      } else {
-        return false
-        console.log('Camera permission denied');
+        console.log('You can write the storage');
+        return true;
       }
+      console.log('Camera permission denied');
+      return false;
     } catch (err) {
       console.warn(err);
-      return false
+      return false;
     }
+  }
+
+  getFileMp3=(driveUrl) => {
+    const arr = driveUrl.split('=');
+    const idFile = arr[1];
+    const baseUrl = 'http://docs.google.com/uc?export=open&id=';
+    const res = `${baseUrl}${idFile}`;
+    return res;
   }
 
   hanldeDownloadAudio=async (url, fileName) => {
-    if(this.requestPermission()){
+    if (this.requestPermission()) {
       try {
-        const res = await RNFetchBlob
+        const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp`;
+        const isDir = RNFetchBlob.fs.isDir(dir);
+        if (!isDir) {
+          await RNFetchBlob.fs.mkdir(dir);
+        }
+
+        const responseDownload = await RNFetchBlob
           .config({
-          // DCIMDir is in external storage
-            addAndroidDownloads: {
-              useDownloadManager: true,
-              notification: true,
-              description: 'File downloaded by download manager.',
-              mime: 'audio/mpeg',
-              mediaScannable: true,
-              path: `${RNFetchBlob.fs.dirs.DownloadDir}/${fileName}`,
-            },
+            path: `${dir}/${fileName}.mp3`,
+            useDownloadManager: true,
+            notification: true,
           })
-          .fetch('GET', url, { 'Cache-Control': 'no-store' });
-        console.log('================================================');
-        console.log('res', res);
-        console.log('================================================');
+          .fetch('GET', url);
+        RNFetchBlob.fs.scanFile([{ path: responseDownload.path(), mime: 'audio/mpeg' }]);
+        this.setState({ isDownloadSuccess: true, showModal: false });
+        RNToasty.Show({
+          title: 'Download success!',
+        });
+      } catch (error) {
+        console.log('hanldeDownloadAudio error: ', error);
       }
-    } catch (error) {
-      console.log('================================================');
-      console.log('hanldeDownloadAudio error: ', error);
-      console.log('================================================');
+    } else {
+      console.log('no permission granted');
     }
   }
 
-  // https://drive.google.com/file/d/1tFCbqGHK-8XLgjgouiIMfd1yrul3Nc2E/view?usp=sharing
-  // http://docs.google.com/uc?export=open&id=1tFCbqGHK-8XLgjgouiIMfd1yrul3Nc2E
   render() {
     const { item } = this.props;
     const { showModal } = this.state;
+    const audioPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/${item.Ten}.mp3`;
+    const downloadUrl = this.getFileMp3(item.Path);
+    console.log('================================================');
+    console.log('item', item);
+    console.log('================================================');
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{item.TieuDe}</Text>
-        <GlobalAudio filepath="audio1.mp3" />
+        <GlobalAudio filepath={audioPath} />
+
         <Modal
           visible={showModal}
           animationType="slide"
           transparent
-          onRequestClose={() => {
-          }}
+          onRequestClose={() => {}}
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
@@ -135,7 +158,7 @@ class CommunicationScreen extends React.PureComponent {
                 {/* ok */}
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => this.hanldeDownloadAudio(item.Path, item.Ten)}
+                  onPress={() => this.hanldeDownloadAudio(downloadUrl, item.Ten)}
                 >
                   <Text style={styles.buttonOk}>OK</Text>
                 </TouchableOpacity>
@@ -148,14 +171,13 @@ class CommunicationScreen extends React.PureComponent {
   }
 }
 export default CommunicationScreen;
-const { width, height } = Dimensions.get('window');
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
-    padding: Sizes.s2,
     backgroundColor: Colors.white,
   },
   title: {
+    padding: '15@s',
     flex: 1,
     fontSize: FontSizes.p,
     color: Colors.black,
