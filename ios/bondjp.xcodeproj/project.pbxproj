@@ -67,6 +67,7 @@
 		C745B18C47B1412AADFB3467 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB1292E269F47468DF7F431 /* libRNFetchBlob.a */; };
 		26971306718A499885207C17 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D34C92A7DE6F4D7C8ECE1976 /* libRNFS.a */; };
 		5E81CBE02A6B4F2EB9A5AC64 /* libRNToasty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08769FEC9CAB450AAE0F14C0 /* libRNToasty.a */; };
+		CC51FB06A6B546379181F895 /* libRNSpinkit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71894725C5594D69A7E8681E /* libRNSpinkit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -412,6 +413,8 @@
 		D34C92A7DE6F4D7C8ECE1976 /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		C91F5C2789334C60B3C1FDA6 /* RNToasty.xcodeproj */ = {isa = PBXFileReference; name = "RNToasty.xcodeproj"; path = "../node_modules/react-native-toasty/ios/RNToasty.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		08769FEC9CAB450AAE0F14C0 /* libRNToasty.a */ = {isa = PBXFileReference; name = "libRNToasty.a"; path = "libRNToasty.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		3207DC0C4C904BDE8104E2D4 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; name = "RNSpinkit.xcodeproj"; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		71894725C5594D69A7E8681E /* libRNSpinkit.a */ = {isa = PBXFileReference; name = "libRNSpinkit.a"; path = "libRNSpinkit.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -451,6 +454,7 @@
 				C745B18C47B1412AADFB3467 /* libRNFetchBlob.a in Frameworks */,
 				26971306718A499885207C17 /* libRNFS.a in Frameworks */,
 				5E81CBE02A6B4F2EB9A5AC64 /* libRNToasty.a in Frameworks */,
+				CC51FB06A6B546379181F895 /* libRNSpinkit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,6 +656,7 @@
 				4EBA0035CFEC4E9F86DE8A35 /* RNFetchBlob.xcodeproj */,
 				A90D483F178E4D19A28E105E /* RNFS.xcodeproj */,
 				C91F5C2789334C60B3C1FDA6 /* RNToasty.xcodeproj */,
+				3207DC0C4C904BDE8104E2D4 /* RNSpinkit.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1331,6 +1336,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1344,6 +1350,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-toasty/ios",
+					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 				);
 			};
 			name = Debug;
@@ -1378,6 +1385,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1391,6 +1399,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-toasty/ios",
+					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 				);
 			};
 			name = Release;
@@ -1423,6 +1432,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-toasty/ios",
+					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 				);
 			};
 			name = Debug;
@@ -1454,6 +1464,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-toasty/ios",
+					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 				);
 			};
 			name = Release;
@@ -1496,6 +1507,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1509,6 +1521,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-toasty/ios",
+					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 				);
 			};
 			name = Debug;
@@ -1551,6 +1564,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1564,6 +1578,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-toasty/ios",
+					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 				);
 			};
 			name = Release;
@@ -1605,6 +1620,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1618,6 +1634,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-toasty/ios",
+					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 				);
 			};
 			name = Debug;
@@ -1659,6 +1676,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1672,6 +1690,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-toasty/ios",
+					"$(SRCROOT)/../node_modules/react-native-spinkit/ios/**",
 				);
 			};
 			name = Release;

@@ -3,6 +3,7 @@ package com.bondjp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.react.rnspinkit.RNSpinkitPackage;
 import ui.toasty.RNToastyPackage;
 import com.rnfs.RNFSPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
@@ -46,6 +47,7 @@ public class MainApplication extends NavigationApplication {
               // eg. new VectorIconsPackage()
               new SQLitePluginPackage(),   // register SQLite Plugin here
               new MainReactPackage(),
+            new RNSpinkitPackage(),
             new RNToastyPackage(),
             new RNFSPackage(),
             new RNFetchBlobPackage(),

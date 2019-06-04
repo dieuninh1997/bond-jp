@@ -13,6 +13,7 @@ import * as newspaperAction from '../../redux/newspaper/newspaper.actions';
 import * as newwordAction from '../../redux/newword/newword.actions';
 import * as subjectAction from '../../redux/subject/subject.actions';
 import * as communicationListAction from '../../redux/communicationlist/communicationlist.actions';
+import * as listeningListAction from '../../redux/listeninglist/listeninglist.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -68,8 +69,14 @@ class MainScreen extends React.PureComponent {
       newwordActions,
       subjectActions,
       communicationListActions,
+      listeningListActions,
     } = this.props;
 
+    listeningListActions.getListeningList({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
     communicationListActions.getCommunicationList({}, (error) => {
       if (error) {
         console.log('getKanji error', error);
@@ -160,7 +167,7 @@ class MainScreen extends React.PureComponent {
         component: {
           name: 'bondjp.CommunicationListScreen',
           passProps: {
-            text: 'Nghe nhạc',
+            text: 'Hội thoại',
           },
         },
       });
@@ -188,9 +195,9 @@ class MainScreen extends React.PureComponent {
     case data[7]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.ListeningScreen',
+          name: 'bondjp.ListeningListScreen',
           passProps: {
-            text: 'Bảng chữ cái',
+            text: 'Nghe nhạc',
           },
         },
       });
@@ -250,6 +257,7 @@ const mapDispatchToProps = dispatch => ({
   newwordActions: bindActionCreators(newwordAction, dispatch),
   subjectActions: bindActionCreators(subjectAction, dispatch),
   communicationListActions: bindActionCreators(communicationListAction, dispatch),
+  listeningListActions: bindActionCreators(listeningListAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

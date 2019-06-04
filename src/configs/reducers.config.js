@@ -6,6 +6,7 @@ import {
   newworsdReducer,
   subjectReducer,
   communicationListReducer,
+  listeningListReducer,
 } from '../redux';
 
 const rootReducer = {
@@ -16,6 +17,7 @@ const rootReducer = {
   newwords: newworsdReducer,
   subjects: subjectReducer,
   communicationList: communicationListReducer,
+  listeningList: listeningListReducer,
 };
 
 export default rootReducer;

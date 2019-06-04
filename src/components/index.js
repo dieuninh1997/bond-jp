@@ -13,6 +13,7 @@ import KanjiScreen from './kanji';
 import KanjiDetailScreen from './kanjidetail';
 
 import ListeningScreen from './listening';
+import ListeningListScreen from './listeninglist';
 
 import NewspapersScreen from './newspapers';
 import NewspaperDetailScreen from './newspaperdetail';
@@ -40,5 +41,6 @@ const screens = {
   WelcomeScreen,
   SubjectScreen,
   CommunicationListScreen,
+  ListeningListScreen,
 };
 export default screens;

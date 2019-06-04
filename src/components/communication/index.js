@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, Modal, TouchableOpacity, PermissionsAndroid, WebView,
+  View, Text, Modal, TouchableOpacity, PermissionsAndroid, Alert, ScrollView,
 } from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { ScaledSheet } from 'react-native-size-matters';
@@ -8,6 +8,7 @@ import { Navigation } from 'react-native-navigation';
 import { RNToasty } from 'react-native-toasty';
 import GlobalAudio from '../../common/GlobalAudio';
 import { Sizes, Colors, FontSizes } from '../../common/variables';
+import GlobalLoading from '../../common/GlobalLoading';
 
 class CommunicationScreen extends React.PureComponent {
   static options() {
@@ -46,19 +47,42 @@ class CommunicationScreen extends React.PureComponent {
     super(props);
     Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     this.state = {
-      showModal: true,
+      showModal: false,
       isDownloadSuccess: false,
+      showLoading: false,
     };
+  }
+
+  async componentDidMount() {
+    const { item } = this.props;
+    const audioPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/HoiThoai/${item.Ten}.mp3`;
+    RNFetchBlob.fs.exists(audioPath).then((res) => {
+      console.log('================================================');
+      console.log('audioPath', res);
+      console.log('================================================');
+      if (!res) {
+        this.setState({ showModal: true });
+      }
+    });
   }
 
   navigationButtonPressed({ buttonId }) {
     if (buttonId === 'buttonDownload') {
-      console.log('================================================');
-      console.log('buttonDownload');
-      console.log('================================================');
-      this.setState({ showModal: true });
+      const { item } = this.props;
+      const audioPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/HoiThoai/${item.Ten}.mp3`;
+      RNFetchBlob.fs.exists(audioPath).then((res) => {
+        console.log('================================================');
+        console.log('buttonDownload audio', res);
+        console.log('================================================');
+        if (res) {
+          Alert.alert('Notice', 'The audio file had been downloaded. Already listening audio!');
+        } else {
+          this.setState({ showModal: true });
+        }
+      });
     }
   }
+
 
   hanldeCloseModal=() => {
     this.setState({ showModal: false });
@@ -97,9 +121,10 @@ class CommunicationScreen extends React.PureComponent {
   }
 
   hanldeDownloadAudio=async (url, fileName) => {
+    this.setState({ showLoading: true, showModal: false });
     if (this.requestPermission()) {
       try {
-        const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp`;
+        const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/HoiThoai`;
         const isDir = RNFetchBlob.fs.isDir(dir);
         if (!isDir) {
           await RNFetchBlob.fs.mkdir(dir);
@@ -113,7 +138,7 @@ class CommunicationScreen extends React.PureComponent {
           })
           .fetch('GET', url);
         RNFetchBlob.fs.scanFile([{ path: responseDownload.path(), mime: 'audio/mpeg' }]);
-        this.setState({ isDownloadSuccess: true, showModal: false });
+        this.setState({ isDownloadSuccess: true, showLoading: false });
         RNToasty.Show({
           title: 'Download success!',
         });
@@ -127,16 +152,20 @@ class CommunicationScreen extends React.PureComponent {
 
   render() {
     const { item } = this.props;
-    const { showModal } = this.state;
-    const audioPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/${item.Ten}.mp3`;
+    const { showModal, showLoading } = this.state;
+    const audioPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/HoiThoai/${item.Ten}.mp3`;
     const downloadUrl = this.getFileMp3(item.Path);
-    console.log('================================================');
-    console.log('item', item);
-    console.log('================================================');
+
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{item.TieuDe}</Text>
+        <ScrollView style={styles.scrollView}>
+          <Text style={styles.title}>{item.TieuDe}</Text>
+          <Text style={styles.audioContent}>{item.NoiDung}</Text>
+        </ScrollView>
         <GlobalAudio filepath={audioPath} />
+        {showLoading ? (
+          <GlobalLoading />
+        ) : null}
 
         <Modal
           visible={showModal}
@@ -176,10 +205,20 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
+  scrollView: {
+    flex: 1,
+  },
   title: {
     padding: '15@s',
     flex: 1,
     fontSize: FontSizes.p,
+    color: Colors.black,
+  },
+  audioContent: {
+    paddingHorizontal: '15@s',
+    paddingBottom: '15@s',
+    flex: 1,
+    fontSize: FontSizes.extraSmall,
     color: Colors.black,
   },
   modalContainer: {

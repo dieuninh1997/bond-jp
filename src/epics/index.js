@@ -6,6 +6,7 @@ import { getNewspapers } from './newspaper';
 import { getNewwords } from './newword';
 import { getSubjects } from './subject';
 import { getCommunicationList } from './communicationlist';
+import { getListeningList } from './listeninglist';
 
 const rootEpic = combineEpics(
   getLettersAlphabet,
@@ -15,6 +16,7 @@ const rootEpic = combineEpics(
   getNewwords,
   getSubjects,
   getCommunicationList,
+  getListeningList,
 );
 
 export default rootEpic;
