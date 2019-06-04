@@ -7,6 +7,7 @@ import {
   subjectReducer,
   communicationListReducer,
   listeningListReducer,
+  grammarListReducer,
 } from '../redux';
 
 const rootReducer = {
@@ -18,6 +19,7 @@ const rootReducer = {
   subjects: subjectReducer,
   communicationList: communicationListReducer,
   listeningList: listeningListReducer,
+  grammarList: grammarListReducer,
 };
 
 export default rootReducer;

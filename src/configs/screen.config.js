@@ -24,6 +24,8 @@ const registerScreens = () => {
 
   Navigation.registerComponentWithRedux('bondjp.CommunicationListScreen', () => screens.CommunicationListScreen, Provider, store);
   Navigation.registerComponent('bondjp.CommunicationScreen', () => screens.CommunicationScreen);
+
+  Navigation.registerComponentWithRedux('bondjp.GrammarListScreen', () => screens.GrammarListScreen, Provider, store);
   Navigation.registerComponent('bondjp.GrammarScreen', () => screens.GrammarScreen);
 
   Navigation.registerComponent('bondjp.PracticeScreen', () => screens.PracticeScreen);

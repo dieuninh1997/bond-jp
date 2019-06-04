@@ -1,0 +1,4 @@
+// get list of grammar video
+export const GET_GRAMMAR_LIST = 'GET_GRAMMAR_LIST';
+export const GET_GRAMMAR_LIST_SUCCESS = 'GET_GRAMMAR_LIST_SUCCESS';
+export const GET_GRAMMAR_LIST_FAIL = 'GET_GRAMMAR_LIST_FAIL';

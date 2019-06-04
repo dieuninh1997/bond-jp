@@ -8,6 +8,7 @@ import CommunicationScreen from './communication';
 import CommunicationListScreen from './communicationlist';
 
 import GrammarScreen from './grammar';
+import GrammarListScreen from './grammarlist';
 
 import KanjiScreen from './kanji';
 import KanjiDetailScreen from './kanjidetail';
@@ -42,5 +43,6 @@ const screens = {
   SubjectScreen,
   CommunicationListScreen,
   ListeningListScreen,
+  GrammarListScreen,
 };
 export default screens;

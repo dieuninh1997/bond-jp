@@ -14,6 +14,7 @@ import * as newwordAction from '../../redux/newword/newword.actions';
 import * as subjectAction from '../../redux/subject/subject.actions';
 import * as communicationListAction from '../../redux/communicationlist/communicationlist.actions';
 import * as listeningListAction from '../../redux/listeninglist/listeninglist.actions';
+import * as grammarListAction from '../../redux/grammarlist/grammarlist.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -70,8 +71,14 @@ class MainScreen extends React.PureComponent {
       subjectActions,
       communicationListActions,
       listeningListActions,
+      grammarListActions,
     } = this.props;
 
+    grammarListActions.getGrammarList({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
     listeningListActions.getListeningList({}, (error) => {
       if (error) {
         console.log('getKanji error', error);
@@ -145,9 +152,9 @@ class MainScreen extends React.PureComponent {
     case data[2]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.GrammarScreen',
+          name: 'bondjp.GrammarListScreen',
           passProps: {
-            text: '',
+            text: 'Ngữ pháp',
           },
         },
       });
@@ -258,6 +265,7 @@ const mapDispatchToProps = dispatch => ({
   subjectActions: bindActionCreators(subjectAction, dispatch),
   communicationListActions: bindActionCreators(communicationListAction, dispatch),
   listeningListActions: bindActionCreators(listeningListAction, dispatch),
+  grammarListActions: bindActionCreators(grammarListAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
