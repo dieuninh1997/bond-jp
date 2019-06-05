@@ -19,9 +19,14 @@ const registerScreens = () => {
   Navigation.registerComponentWithRedux('bondjp.NewwordsScreen', () => screens.NewwordsScreen, Provider, store);
   Navigation.registerComponentWithRedux('bondjp.SubjectScreen', () => screens.SubjectScreen, Provider, store);
 
-  Navigation.registerComponent('bondjp.CommunicationScreen', () => screens.CommunicationScreen);
-  Navigation.registerComponent('bondjp.GrammarScreen', () => screens.GrammarScreen);
   Navigation.registerComponent('bondjp.ListeningScreen', () => screens.ListeningScreen);
+  Navigation.registerComponentWithRedux('bondjp.ListeningListScreen', () => screens.ListeningListScreen, Provider, store);
+
+  Navigation.registerComponentWithRedux('bondjp.CommunicationListScreen', () => screens.CommunicationListScreen, Provider, store);
+  Navigation.registerComponent('bondjp.CommunicationScreen', () => screens.CommunicationScreen);
+
+  Navigation.registerComponentWithRedux('bondjp.GrammarListScreen', () => screens.GrammarListScreen, Provider, store);
+  Navigation.registerComponent('bondjp.GrammarScreen', () => screens.GrammarScreen);
 
   Navigation.registerComponent('bondjp.PracticeScreen', () => screens.PracticeScreen);
   Navigation.registerComponent('bondjp.WelcomeScreen', () => screens.WelcomeScreen);

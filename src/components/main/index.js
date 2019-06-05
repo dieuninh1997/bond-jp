@@ -12,6 +12,9 @@ import * as kanjiAction from '../../redux/kanji/kanji.actions';
 import * as newspaperAction from '../../redux/newspaper/newspaper.actions';
 import * as newwordAction from '../../redux/newword/newword.actions';
 import * as subjectAction from '../../redux/subject/subject.actions';
+import * as communicationListAction from '../../redux/communicationlist/communicationlist.actions';
+import * as listeningListAction from '../../redux/listeninglist/listeninglist.actions';
+import * as grammarListAction from '../../redux/grammarlist/grammarlist.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
 
 
@@ -66,7 +69,26 @@ class MainScreen extends React.PureComponent {
       newspaperActions,
       newwordActions,
       subjectActions,
+      communicationListActions,
+      listeningListActions,
+      grammarListActions,
     } = this.props;
+
+    grammarListActions.getGrammarList({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
+    listeningListActions.getListeningList({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
+    communicationListActions.getCommunicationList({}, (error) => {
+      if (error) {
+        console.log('getKanji error', error);
+      }
+    });
 
     subjectActions.getSubjects({}, (error) => {
       if (error) {
@@ -130,9 +152,9 @@ class MainScreen extends React.PureComponent {
     case data[2]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.GrammarScreen',
+          name: 'bondjp.GrammarListScreen',
           passProps: {
-            text: '',
+            text: 'Ngữ pháp',
           },
         },
       });
@@ -150,9 +172,9 @@ class MainScreen extends React.PureComponent {
     case data[4]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.CommunicationScreen',
+          name: 'bondjp.CommunicationListScreen',
           passProps: {
-            text: '',
+            text: 'Hội thoại',
           },
         },
       });
@@ -180,9 +202,9 @@ class MainScreen extends React.PureComponent {
     case data[7]:
       Navigation.push(componentId, {
         component: {
-          name: 'bondjp.ListeningScreen',
+          name: 'bondjp.ListeningListScreen',
           passProps: {
-            text: 'Bảng chữ cái',
+            text: 'Nghe nhạc',
           },
         },
       });
@@ -241,6 +263,9 @@ const mapDispatchToProps = dispatch => ({
   newspaperActions: bindActionCreators(newspaperAction, dispatch),
   newwordActions: bindActionCreators(newwordAction, dispatch),
   subjectActions: bindActionCreators(subjectAction, dispatch),
+  communicationListActions: bindActionCreators(communicationListAction, dispatch),
+  listeningListActions: bindActionCreators(listeningListAction, dispatch),
+  grammarListActions: bindActionCreators(grammarListAction, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

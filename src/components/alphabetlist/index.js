@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
-import { ScaledSheet, moderateScale } from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as alphabetListAction from '../../redux/alphabetlist/alphabetlist.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';

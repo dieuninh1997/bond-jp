@@ -5,12 +5,16 @@ import AlphabetListScreen from './alphabetlist';
 import LetterScreen from './letter';
 
 import CommunicationScreen from './communication';
+import CommunicationListScreen from './communicationlist';
+
 import GrammarScreen from './grammar';
+import GrammarListScreen from './grammarlist';
 
 import KanjiScreen from './kanji';
 import KanjiDetailScreen from './kanjidetail';
 
 import ListeningScreen from './listening';
+import ListeningListScreen from './listeninglist';
 
 import NewspapersScreen from './newspapers';
 import NewspaperDetailScreen from './newspaperdetail';
@@ -37,5 +41,8 @@ const screens = {
   KanjiDetailScreen,
   WelcomeScreen,
   SubjectScreen,
+  CommunicationListScreen,
+  ListeningListScreen,
+  GrammarListScreen,
 };
 export default screens;
