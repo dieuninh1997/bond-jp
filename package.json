@@ -29,6 +29,7 @@
     "react-native-spinkit": "1.3.0",
     "react-native-splash-screen": "3.2.0",
     "react-native-sqlite-storage": "3.3.10",
+    "react-native-svg": "9.4.0",
     "react-native-toasty": "^0.0.4",
     "react-native-vector-icons": "6.4.2",
     "react-native-video": "4.4.1",
@@ -52,6 +53,7 @@
     "jest": "24.3.1",
     "metro-react-native-babel-preset": "0.53.0",
     "react-native-size-matters": "./src/libs/react-native-size-matters",
+    "react-native-svg-transformer": "^0.13.0",
     "react-test-renderer": "16.6.3"
   },
   "jest": {

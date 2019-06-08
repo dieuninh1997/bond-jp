@@ -104,6 +104,7 @@ android {
         missingDimensionStrategy "RNN.reactNativeVersion", "reactNative57" // See note below
         versionCode 1
         versionName "1.0"
+        multiDexEnabled = true
     }
      signingConfigs {
         release {
@@ -161,6 +162,7 @@ configurations.all {
 
 
 dependencies {
+    implementation project(':react-native-svg')
     implementation project(':react-native-video')
     implementation project(':react-native-spinkit')
     implementation project(':react-native-toasty')

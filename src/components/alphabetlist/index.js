@@ -60,7 +60,7 @@ class AlphabetListScreen extends React.PureComponent {
   _renderItem=({ item }) => (
     <TouchableOpacity onPress={() => this.handleAlphabetOpened(item)}>
       <View style={styles.itemContainer}>
-        <Text style={styles.itemName}>{item.LoaiChu}</Text>
+        <Text style={styles.itemName}>{item.LoaiChu.toString().trim()}</Text>
         <Ionicons name="ios-arrow-forward" style={styles.iconArrow} />
       </View>
     </TouchableOpacity>

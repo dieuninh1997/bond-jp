@@ -16,7 +16,14 @@ import * as communicationListAction from '../../redux/communicationlist/communic
 import * as listeningListAction from '../../redux/listeninglist/listeninglist.actions';
 import * as grammarListAction from '../../redux/grammarlist/grammarlist.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
-
+import AlphabetIcon from '../../assets/svg/alphabet.svg';
+import KanjiIcon from '../../assets/svg/kanji.svg';
+import DigitalIcon from '../../assets/svg/digital.svg';
+import FlashCardIcon from '../../assets/svg/vocabulary.svg';
+import ChatIcon from '../../assets/svg/chat.svg';
+import NewsIcon from '../../assets/svg/newspaper.svg';
+import Mp3Icon from '../../assets/svg/mp3.svg';
+import HeadphonesIcon from '../../assets/svg/headphones.svg';
 
 class MainScreen extends React.PureComponent {
   static options(passProps) {
@@ -215,8 +222,16 @@ class MainScreen extends React.PureComponent {
     }
   }
 
-  _renderItem = item => (
+  _renderItem = (item, type) => (
     <TouchableOpacity onPress={() => this.onItemPressed(item)} style={styles.cardContainer}>
+      {type === 0 ? <AlphabetIcon /> : null}
+      {type === 1 ? <KanjiIcon /> : null}
+      {type === 2 ? <DigitalIcon /> : null}
+      {type === 3 ? <FlashCardIcon /> : null}
+      {type === 4 ? <ChatIcon /> : null}
+      {type === 5 ? <NewsIcon /> : null}
+      {type === 6 ? <HeadphonesIcon /> : null}
+      {type === 7 ? <HeadphonesIcon /> : null}
       <Text style={styles.text}>
         {
           item
@@ -233,23 +248,23 @@ class MainScreen extends React.PureComponent {
       <View style={styles.container}>
         {/* content */}
         <View style={[styles.content, { marginTop: Sizes.s4 }]}>
-          {this._renderItem(data[0])}
-          {this._renderItem(data[1])}
+          {this._renderItem(data[0], 0)}
+          {this._renderItem(data[1], 1)}
         </View>
 
         <View style={styles.content}>
-          {this._renderItem(data[2])}
-          {this._renderItem(data[3])}
+          {this._renderItem(data[2], 2)}
+          {this._renderItem(data[3], 3)}
         </View>
 
         <View style={styles.content}>
-          {this._renderItem(data[4])}
-          {this._renderItem(data[5])}
+          {this._renderItem(data[4], 4)}
+          {this._renderItem(data[5], 5)}
         </View>
 
         <View style={[styles.content, { marginBottom: Sizes.s4 }]}>
-          {this._renderItem(data[6])}
-          {this._renderItem(data[7])}
+          {/* {this._renderItem(data[6])} */}
+          {this._renderItem(data[7], 7)}
         </View>
       </View>
     );
@@ -285,17 +300,20 @@ const styles = ScaledSheet.create({
   },
   text: {
     fontSize: FontSizes.p,
-    color: Colors.info,
+    color: Colors.black,
     textAlign: 'center',
+    marginTop: Sizes.s2,
   },
   cardContainer: {
     flex: 1,
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.white,
     marginHorizontal: Sizes.s2,
     padding: Sizes.s2,
     borderRadius: Sizes.s1,
+    elevation: Sizes.s1,
+    shadowOpacity: 0.5,
   },
 });
