@@ -16,6 +16,7 @@ export const Colors = {
   info: '#FFFFFF',
   danger: '#ff3600',
   link: '#265799',
+  separater: '#e7e7e7',
 };
 
 export const FontSizes = {

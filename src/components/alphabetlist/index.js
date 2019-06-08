@@ -93,17 +93,20 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    padding: Sizes.s2,
   },
 
   itemContainer: {
     flex: 1,
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: Colors.black,
+    borderBottomColor: Colors.separater,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: Sizes.s3,
     paddingHorizontal: Sizes.s2,
+    backgroundColor: Colors.white,
+    margin: Sizes.s1,
   },
 
   itemName: {
@@ -114,6 +117,6 @@ const styles = ScaledSheet.create({
 
   iconArrow: {
     fontSize: FontSizes.p,
-    color: Colors.black,
+    color: Colors.gray,
   },
 });

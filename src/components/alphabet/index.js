@@ -5,7 +5,7 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
-import { ScaledSheet, moderateScale } from 'react-native-size-matters';
+import { ScaledSheet, moderateScale, scale } from 'react-native-size-matters';
 import _ from 'lodash';
 import * as alphabetAction from '../../redux/alphabet/alphabet.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
@@ -72,7 +72,7 @@ class AlphabetScreen extends React.PureComponent {
       <View style={styles.container}>
         <FlatList
           data={letters}
-          numColumns={5}
+          numColumns={4}
           renderItem={this._renderItem}
           keyExtractor={(e, index) => `${e.IdChuCai} - ${index}`}
           extraData={this.props}
@@ -95,17 +95,19 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    padding: Sizes.s2,
   },
 
   letterContainer: {
-    width: width / 5,
-    height: width / 5,
-    borderRightWidth: 1,
-    borderRightColor: Colors.black,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.black,
+    width: (width - 5 * scale(10)) / 4,
+    height: (width - 5 * scale(10)) / 4,
+    borderRadius: Sizes.s1,
+    borderWidth: 1,
+    borderColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: Sizes.s2,
+    marginBottom: Sizes.s2,
   },
 
   letter: {
