@@ -48,39 +48,60 @@ class NewspaperScreen extends React.PureComponent {
 
   hanldeNewspaperPressed=(item) => {
     const { componentId } = this.props;
+    const ngayGioBao = item.MoTa.substr(0, item.MoTa.indexOf('\n'));
+    const bao = ngayGioBao.substr(0, ngayGioBao.indexOf(' '));
+    const ngayGio = ngayGioBao.substr(ngayGioBao.indexOf(' ') + 1);
     Navigation.push(componentId, {
       component: {
         name: 'bondjp.NewspaperDetailScreen',
         passProps: {
           item,
+          bao,
+          ngayGio,
         },
       },
     });
   }
 
-  _renderItem=({ item }) => (
-    <TouchableOpacity onPress={() => this.hanldeNewspaperPressed(item)}>
-      <View style={styles.row}>
-        <View style={styles.itemContainer}>
-          <Text style={styles.title}>{item.TieuDe}</Text>
-          <Text
-            numberOfLines={5}
-            ellipsizeMode="tail"
-            style={styles.summarizeContent}
-          >
-            {item.MoTa}
-          </Text>
+  _renderItem=({ item }) => {
+    const ngayGioBao = item.MoTa.substr(0, item.MoTa.indexOf('\n'));
+    const tomTat = item.MoTa.substr(item.MoTa.indexOf('\n') + 1);
+    const bao = ngayGioBao.substr(0, ngayGioBao.indexOf(' '));
+    const ngayGio = ngayGioBao.substr(ngayGioBao.indexOf(' ') + 1);
+    return (
+      <TouchableOpacity onPress={() => this.hanldeNewspaperPressed(item)}>
+        <View style={styles.row}>
+          <View style={styles.thumbnai}>
+            <Text style={styles.bao}>
+              {bao}
+            </Text>
+            <Text style={styles.title}>{item.TieuDe}</Text>
+
+          </View>
+          <View style={styles.itemContainer}>
+            <Text style={styles.date}>
+              {ngayGio}
+            </Text>
+            <Text
+              numberOfLines={4}
+              ellipsizeMode="tail"
+              style={styles.summarizeContent}
+            >
+              {tomTat}
+            </Text>
+          </View>
+          {/* <MaterialIcons name="keyboard-arrow-right" style={styles.iconRightArrow} /> */}
         </View>
-        <MaterialIcons name="keyboard-arrow-right" style={styles.iconRightArrow} />
-      </View>
-    </TouchableOpacity>
-  )
+      </TouchableOpacity>
+    );
+  }
 
   render() {
     const { newspapers } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
+          numColumns={2}
           data={newspapers}
           renderItem={this._renderItem}
           keyExtractor={(e, index) => `${e.IdChuCai} - ${index}`}
@@ -102,40 +123,62 @@ const { width, height } = Dimensions.get('window');
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    padding: Sizes.s1,
   },
 
   row: {
-    width,
-    flexDirection: 'row',
-    paddingVertical: Sizes.s2,
-    paddingHorizontal: Sizes.s2,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.black,
+    width: (width - 30) / 2,
+    height: height / 3,
     alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: Colors.white,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.separater,
+    borderRadius: Sizes.s1,
+    margin: Sizes.s1,
+    elevation: Sizes.s1,
+    shadowOpacity: 0.5,
+  },
+  thumbnai: {
+    flex: 1,
+    width: (width - 30) / 2,
+    backgroundColor: Colors.warning,
+    padding: Sizes.s1,
+  },
+  bao: {
+    width: Sizes.s10,
+    color: Colors.white,
+    fontSize: FontSizes.small,
+    fontWeight: 'bold',
+    backgroundColor: 'red',
+    paddingHorizontal: Sizes.s1,
+    marginBottom: Sizes.s1,
+  },
+  date: {
+    color: Colors.gray,
+    fontSize: FontSizes.extraSmall,
+    fontStyle: 'italic',
   },
 
   itemContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingRight: Sizes.s2,
+    padding: Sizes.s2,
   },
 
   title: {
     color: Colors.black,
-    fontSize: FontSizes.p,
+    fontSize: FontSizes.small,
     fontWeight: 'bold',
     marginBottom: Sizes.s1,
   },
 
   summarizeContent: {
     color: Colors.gray,
-    fontSize: FontSizes.small,
+    fontSize: FontSizes.extraSmall,
   },
 
-  iconRightArrow: {
-    fontSize: FontSizes.large,
-    color: Colors.black,
-  },
+  // iconRightArrow: {
+  //   fontSize: FontSizes.large,
+  //   color: Colors.gray,
+  // },
 });

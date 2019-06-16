@@ -60,6 +60,11 @@ class AlphabetListScreen extends React.PureComponent {
   _renderItem=({ item }) => (
     <TouchableOpacity onPress={() => this.handleAlphabetOpened(item)}>
       <View style={styles.itemContainer}>
+        <View style={styles.logo}>
+          <Text style={styles.numbers}>46</Text>
+          <Text style={styles.letter}>chữ</Text>
+        </View>
+
         <Text style={styles.itemName}>{item.LoaiChu.toString().trim()}</Text>
         <Ionicons name="ios-arrow-forward" style={styles.iconArrow} />
       </View>
@@ -93,7 +98,7 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
-    padding: Sizes.s2,
+    paddingHorizontal: Sizes.s2,
   },
 
   itemContainer: {
@@ -108,7 +113,22 @@ const styles = ScaledSheet.create({
     backgroundColor: Colors.white,
     margin: Sizes.s1,
   },
-
+  logo: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    backgroundColor: Colors.warning,
+    padding: Sizes.s2,
+    borderRadius: Sizes.s3,
+    marginRight: Sizes.s2,
+  },
+  numbers: {
+    fontSize: FontSizes.extraSmall,
+    color: Colors.black,
+  },
+  letter: {
+    fontSize: FontSizes.minium,
+    color: Colors.black,
+  },
   itemName: {
     flex: 1,
     fontSize: FontSizes.p,

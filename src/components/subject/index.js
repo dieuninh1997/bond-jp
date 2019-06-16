@@ -59,9 +59,10 @@ class SubjectScreen extends React.PureComponent {
     });
   }
 
-  _renderItem=({ item }) => (
+  _renderItem=({ item, index }) => (
     <TouchableOpacity onPress={() => this.handleSubjectTypePressed(item)}>
       <View style={styles.itemContainer}>
+        <Text style={styles.thuTu}>{index + 1}</Text>
         <Text style={styles.itemName}>{item.LoaiTuVung}</Text>
         <Ionicons name="ios-arrow-forward" style={styles.iconArrow} />
       </View>
@@ -95,19 +96,27 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    paddingHorizontal: Sizes.s2,
   },
 
   itemContainer: {
     flex: 1,
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: Colors.black,
+    borderBottomColor: Colors.separater,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: Sizes.s3,
-    paddingHorizontal: Sizes.s2,
   },
-
+  thuTu: {
+    fontSize: FontSizes.small,
+    color: Colors.black,
+    backgroundColor: Colors.warning,
+    borderRadius: Sizes.s2,
+    paddingVertical: Sizes.s1,
+    paddingHorizontal: Sizes.s2,
+    marginRight: Sizes.s2,
+  },
   itemName: {
     flex: 1,
     fontSize: FontSizes.p,
@@ -116,6 +125,6 @@ const styles = ScaledSheet.create({
 
   iconArrow: {
     fontSize: FontSizes.p,
-    color: Colors.black,
+    color: Colors.gray,
   },
 });

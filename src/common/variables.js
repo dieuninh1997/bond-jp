@@ -31,6 +31,7 @@ export const FontSizes = {
   p: moderateScale(16),
   small: moderateScale(14),
   extraSmall: moderateScale(12),
+  minium: moderateScale(8),
 };
 
 export const Sizes = {

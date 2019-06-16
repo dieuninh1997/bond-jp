@@ -58,6 +58,7 @@ class AlphabetScreen extends React.PureComponent {
   _renderItem=({ item }) => (
     <TouchableOpacity onPress={() => this.hanldeLetterPressed(item)}>
       <View style={styles.letterContainer}>
+        <Text style={styles.phienAm}>{item.PhienAm}</Text>
         <Text style={styles.letter}>{item.TenChu}</Text>
       </View>
 
@@ -109,7 +110,14 @@ const styles = ScaledSheet.create({
     marginRight: Sizes.s2,
     marginBottom: Sizes.s2,
   },
-
+  phienAm: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    margin: Sizes.s1,
+    color: Colors.gray,
+    fontSize: FontSizes.small,
+  },
   letter: {
     color: Colors.black,
     fontSize: FontSizes.h2,
