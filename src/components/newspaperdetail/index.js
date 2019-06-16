@@ -39,10 +39,18 @@ class NewspaperDetailScreen extends React.PureComponent {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, bao, ngayGio } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{item.TieuDe}</Text>
+        <View style={styles.row}>
+          <Text style={styles.bao}>
+            {bao}
+          </Text>
+          <Text style={styles.date}>
+            {ngayGio}
+          </Text>
+        </View>
         <ScrollView style={styles.content}>
           <Text style={styles.contentText}>{item.NoiDung}</Text>
         </ScrollView>
@@ -58,6 +66,30 @@ const styles = ScaledSheet.create({
     flex: 1,
     padding: Sizes.s2,
     backgroundColor: Colors.white,
+  },
+
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: Sizes.s3,
+  },
+
+  bao: {
+    width: Sizes.s10,
+    color: Colors.white,
+    fontSize: FontSizes.small,
+    fontWeight: 'bold',
+    backgroundColor: 'red',
+    paddingHorizontal: Sizes.s1,
+    marginBottom: Sizes.s1,
+  },
+
+  date: {
+    flex: 1,
+    textAlign: 'right',
+    color: Colors.gray,
+    fontSize: FontSizes.extraSmall,
+    fontStyle: 'italic',
   },
 
   title: {

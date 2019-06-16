@@ -16,6 +16,7 @@ export const Colors = {
   info: '#FFFFFF',
   danger: '#ff3600',
   link: '#265799',
+  separater: '#e7e7e7',
 };
 
 export const FontSizes = {
@@ -30,6 +31,7 @@ export const FontSizes = {
   p: moderateScale(16),
   small: moderateScale(14),
   extraSmall: moderateScale(12),
+  minium: moderateScale(8),
 };
 
 export const Sizes = {

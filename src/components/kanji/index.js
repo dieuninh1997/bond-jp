@@ -9,8 +9,8 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Navigation } from 'react-native-navigation';
-import { ScaledSheet } from 'react-native-size-matters';
-import { Colors, FontSizes } from '../../common/variables';
+import { ScaledSheet, moderateScale, scale } from 'react-native-size-matters';
+import { Colors, FontSizes, Sizes } from '../../common/variables';
 import * as kanjiAction from '../../redux/kanji/kanji.actions';
 
 class KanjiScreen extends React.PureComponent {
@@ -70,6 +70,7 @@ class KanjiScreen extends React.PureComponent {
   _renderItem=({ item }) => (
     <TouchableOpacity onPress={() => this.hanldeLetterPressed(item)}>
       <View style={styles.kanjiContainer}>
+        <Text style={styles.hanViet}>{item.HanViet}</Text>
         <Text style={styles.kanjiText}>{item.TenChu}</Text>
       </View>
     </TouchableOpacity>
@@ -77,14 +78,18 @@ class KanjiScreen extends React.PureComponent {
 
   render() {
     const { kanjiList } = this.props;
+    const ITEM_HEIGHT = Sizes.s8;
     return (
       <View style={styles.container}>
         <FlatList
           data={kanjiList}
-          numColumns={5}
+          numColumns={4}
           renderItem={this._renderItem}
           keyExtractor={(e, index) => `${e.IdChuCai} - ${index}`}
           extraData={this.props}
+          getItemLayout={(data, index) => (
+            { length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index }
+          )}
         />
       </View>
     );
@@ -105,19 +110,28 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    padding: Sizes.s2,
   },
 
   kanjiContainer: {
-    width: width / 5,
-    height: width / 5,
-    borderRightWidth: 1,
-    borderRightColor: Colors.black,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.black,
+    width: (width - 5 * scale(10)) / 4,
+    height: (width - 5 * scale(10)) / 4,
+    borderRadius: Sizes.s1,
+    borderWidth: 1,
+    borderColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: Sizes.s2,
+    marginBottom: Sizes.s2,
   },
-
+  hanViet: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    margin: Sizes.s1,
+    color: Colors.gray,
+    fontSize: FontSizes.minium,
+  },
   kanjiText: {
     color: Colors.black,
     fontSize: FontSizes.h2,

@@ -44,8 +44,6 @@ class KanjiDetailScreen extends React.PureComponent {
     const { item } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.kanjiName}>{`${item.TenChu}: ${item.HanViet}`}</Text>
-        <Text style={styles.kanjiName}>{item.ViDu}</Text>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
@@ -53,7 +51,16 @@ class KanjiDetailScreen extends React.PureComponent {
             resizeMode="stretch"
           />
         </View>
-
+        <View style={styles.details}>
+          <View style={styles.row}>
+            <Text style={styles.title}>Hán việt</Text>
+            <Text style={styles.kanjiName}>{item.HanViet}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.title}>Ví dụ</Text>
+            <Text style={styles.kanjiName}>{item.ViDu}</Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -68,17 +75,41 @@ const styles = ScaledSheet.create({
     backgroundColor: Colors.white,
     padding: Sizes.s2,
   },
-
+  title: {
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.separater,
+    borderRadius: Sizes.s2,
+    marginRight: Sizes.s2,
+    color: Colors.black,
+    paddingLeft: Sizes.s2,
+    fontSize: FontSizes.small,
+    height: Sizes.s5,
+  },
   kanjiName: {
+    flex: 2,
     color: Colors.black,
     fontSize: FontSizes.p,
-    marginBottom: Sizes.s4,
   },
-
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: Sizes.s2,
+  },
+  details: {
+    flex: 1,
+  },
   imageContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: Colors.white,
+    margin: Sizes.s4,
+    padding: Sizes.s2,
+    borderRadius: Sizes.s1,
+    elevation: Sizes.s1,
+    shadowOpacity: 0.5,
   },
 
   image: {

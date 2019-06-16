@@ -60,7 +60,12 @@ class AlphabetListScreen extends React.PureComponent {
   _renderItem=({ item }) => (
     <TouchableOpacity onPress={() => this.handleAlphabetOpened(item)}>
       <View style={styles.itemContainer}>
-        <Text style={styles.itemName}>{item.LoaiChu}</Text>
+        <View style={styles.logo}>
+          <Text style={styles.numbers}>46</Text>
+          <Text style={styles.letter}>chữ</Text>
+        </View>
+
+        <Text style={styles.itemName}>{item.LoaiChu.toString().trim()}</Text>
         <Ionicons name="ios-arrow-forward" style={styles.iconArrow} />
       </View>
     </TouchableOpacity>
@@ -93,19 +98,37 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.white,
+    paddingHorizontal: Sizes.s2,
   },
 
   itemContainer: {
     flex: 1,
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: Colors.black,
+    borderBottomColor: Colors.separater,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: Sizes.s3,
     paddingHorizontal: Sizes.s2,
+    backgroundColor: Colors.white,
+    margin: Sizes.s1,
   },
-
+  logo: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    backgroundColor: Colors.warning,
+    padding: Sizes.s2,
+    borderRadius: Sizes.s3,
+    marginRight: Sizes.s2,
+  },
+  numbers: {
+    fontSize: FontSizes.extraSmall,
+    color: Colors.black,
+  },
+  letter: {
+    fontSize: FontSizes.minium,
+    color: Colors.black,
+  },
   itemName: {
     flex: 1,
     fontSize: FontSizes.p,
@@ -114,6 +137,6 @@ const styles = ScaledSheet.create({
 
   iconArrow: {
     fontSize: FontSizes.p,
-    color: Colors.black,
+    color: Colors.gray,
   },
 });
