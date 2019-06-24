@@ -34,6 +34,12 @@ class CommunicationListScreen extends React.PureComponent {
         backButton: {
           color: Colors.white,
         },
+        rightButtons: [
+          {
+            id: 'buttonDownload',
+            icon: require('../../assets/images/ic_downloads.png'),
+          },
+        ],
       },
     };
   }
@@ -59,10 +65,10 @@ class CommunicationListScreen extends React.PureComponent {
   }
 
 
-  _renderItem=({ item }) => (
+  _renderItem=({ item, index }) => (
     <TouchableOpacity onPress={() => this.handleAlphabetOpened(item)}>
       <View style={styles.itemContainer}>
-        <Text style={styles.thuTu}>{item.Ten}</Text>
+        <Text style={styles.thuTu}>{index + 1}</Text>
         <Text style={styles.itemName}>{item.TieuDe}</Text>
         <Ionicons name="ios-arrow-forward" style={styles.iconArrow} />
       </View>

@@ -35,6 +35,12 @@ class ListeningListScreen extends React.PureComponent {
         backButton: {
           color: Colors.white,
         },
+        rightButtons: [
+          {
+            id: 'buttonDownload',
+            icon: require('../../assets/images/ic_downloads.png'),
+          },
+        ],
       },
     };
   }
