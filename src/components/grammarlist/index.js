@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, FlatList, TouchableOpacity, Modal, Alert, PermissionsAndroid,
+  View, Text, FlatList, TouchableOpacity, Modal, Alert, PermissionsAndroid, ProgressBarAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -52,6 +52,7 @@ class GrammarListScreen extends React.PureComponent {
       showLoading: false,
       showModal: false,
       count: 0,
+      progress: 0,
     };
   }
 
@@ -88,7 +89,7 @@ class GrammarListScreen extends React.PureComponent {
   }
 
   hanldeDownloadVideo=async () => {
-    this.setState({ showLoading: true, showModal: false });
+    this.setState({ showModal: false, showLoading: true, progress: 0 });
     if (this.requestPermission()) {
       try {
         const { grammarList } = this.props;
@@ -100,21 +101,28 @@ class GrammarListScreen extends React.PureComponent {
           RNFetchBlob
             .config({
               path: `${dir}/${item.Ten}.mp4`,
-              useDownloadManager: true,
-              notification: true,
+              fileCache: true,
+              // addAndroidDownloads: {
+              //   notification: true,
+              // },
             })
             .fetch('GET', downloadUrl)
+            .progress((received, total) => {
+              // listen to download progress event, every 10%
+              console.log('================================================');
+              console.log('total', total);
+              console.log('received', received);
+              console.log('progress', received / total);
+              console.log('================================================');
+              this.setState({ progress: received / total });
+            })
             .then((responseDownload) => {
-              this.setState({ count: this.state.count + 1 });
+              this.setState({ count: this.state.count + 1, progress: 100, showLoading: false });
               RNFetchBlob.fs.scanFile([{ path: responseDownload.path(), mime: 'video/mp4' }]);
+              console.log('================================================');
+              console.log('sucess', this.state.count);
+              console.log('================================================');
             });
-        }
-
-        if (this.state.count === grammarList.length) {
-          this.setState({ isDownloadSuccess: true, showLoading: false });
-          RNToasty.Show({
-            title: 'Download success!',
-          });
         }
       } catch (error) {
         console.log('hanldeDownloadAudio error: ', error);
@@ -211,7 +219,7 @@ class GrammarListScreen extends React.PureComponent {
 
   render() {
     const { grammarList } = this.props;
-    const { showModal, showLoading } = this.state;
+    const { showModal, showLoading, progress } = this.state;
     return (
       <View style={styles.container}>
         <FlatList
@@ -222,6 +230,12 @@ class GrammarListScreen extends React.PureComponent {
         />
         {showLoading ? (
           <GlobalLoading />
+          // <ProgressBarAndroid
+          //   styleAttr="Large"
+          //   indeterminate={false}
+          //   progress={progress}
+
+        // />
         ) : null}
 
         <Modal
