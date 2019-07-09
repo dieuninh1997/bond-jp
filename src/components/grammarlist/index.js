@@ -10,7 +10,6 @@ import { Navigation } from 'react-native-navigation';
 import RNFetchBlob from 'react-native-fetch-blob';
 import * as grammarListAction from '../../redux/grammarlist/grammarlist.actions';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
-import GlobalLoading from '../../common/GlobalLoading';
 
 class GrammarListScreen extends React.PureComponent {
   static options(passProps) {
@@ -49,7 +48,6 @@ class GrammarListScreen extends React.PureComponent {
     super(props);
     Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
     this.state = {
-      showLoading: false,
       showModal: false,
     };
   }
@@ -86,7 +84,7 @@ class GrammarListScreen extends React.PureComponent {
     }
   }
 
-  hanldeDownloadAudio=async () => {
+  hanldeDownloadVideo=async () => {
     this.setState({ showModal: false });
     if (this.requestPermission()) {
       try {
@@ -110,7 +108,7 @@ class GrammarListScreen extends React.PureComponent {
             .fetch('GET', downloadUrl);
         }
       } catch (error) {
-        console.log('hanldeDownloadAudio error: ', error);
+        console.log('hanldeDownloadVideo error: ', error);
       }
     } else {
       console.log('no permission granted');
@@ -142,14 +140,13 @@ class GrammarListScreen extends React.PureComponent {
                     onPress: () => console.log('Cancel Pressed'),
                     style: 'cancel',
                   },
-                  { text: 'OK', onPress: this.hanldeDownloadAudio },
+                  { text: 'OK', onPress: this.hanldeDownloadVideo },
                 ],
                 { cancelable: false },
               );
             } else {
-              Alert.alert(
-                'All videos are downloaded!',
-              );
+              Alert.alert(null,
+                'All videos are downloaded!');
             }
           }).catch((error) => {
             console.log('down all error', error);
@@ -190,7 +187,7 @@ class GrammarListScreen extends React.PureComponent {
 
   render() {
     const { grammarList } = this.props;
-    const { showModal, showLoading } = this.state;
+    const { showModal } = this.state;
 
     return (
       <View style={styles.container}>
@@ -200,9 +197,6 @@ class GrammarListScreen extends React.PureComponent {
           keyExtractor={(item, index) => `${item.Id} - ${index}`}
           extraData={this.props}
         />
-        {showLoading ? (
-          <GlobalLoading />
-        ) : null}
 
         <Modal
           visible={showModal}
@@ -224,7 +218,7 @@ class GrammarListScreen extends React.PureComponent {
                 {/* ok */}
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={this.hanldeDownloadAudio}
+                  onPress={this.hanldeDownloadVideo}
                 >
                   <Text style={styles.buttonOk}>OK</Text>
                 </TouchableOpacity>
