@@ -55,7 +55,7 @@ class ListeningScreen extends React.PureComponent {
 
   async componentDidMount() {
     const { item } = this.props;
-    const musicPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Nhac/${item.Ten}.mp3`;
+    const musicPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Music/${item.Ten}.mp3`;
     RNFetchBlob.fs.exists(musicPath).then((res) => {
       console.log('================================================');
       console.log('musicPath', res);
@@ -69,7 +69,7 @@ class ListeningScreen extends React.PureComponent {
   navigationButtonPressed({ buttonId }) {
     if (buttonId === 'buttonDownload') {
       const { item } = this.props;
-      const musicPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Nhac/${item.Ten}.mp3`;
+      const musicPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Music/${item.Ten}.mp3`;
       RNFetchBlob.fs.exists(musicPath).then((res) => {
         console.log('================================================');
         console.log('buttonDownload music', res);
@@ -123,7 +123,7 @@ class ListeningScreen extends React.PureComponent {
     this.setState({ showLoading: true, showModal: false });
     if (this.requestPermission()) {
       try {
-        const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Nhac`;
+        const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Music`;
         const isDir = RNFetchBlob.fs.isDir(dir);
         if (!isDir) {
           await RNFetchBlob.fs.mkdir(dir);
@@ -156,7 +156,7 @@ class ListeningScreen extends React.PureComponent {
     console.log('ListeningScreen item', item);
     console.log('================================================');
     const { showModal, showLoading } = this.state;
-    const audioPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Nhac/${item.Ten}.mp3`;
+    const audioPath = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Music/${item.Ten}.mp3`;
     const downloadUrl = this.getFileMp3(item.Path);
 
     return (
