@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, FlatList, TouchableOpacity, Modal, Alert, PermissionsAndroid, ProgressBarAndroid,
+  View, Text, FlatList, TouchableOpacity, Modal, Alert, PermissionsAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -51,8 +51,6 @@ class GrammarListScreen extends React.PureComponent {
     this.state = {
       showLoading: false,
       showModal: false,
-      count: 0,
-      progress: 0,
     };
   }
 
@@ -88,41 +86,28 @@ class GrammarListScreen extends React.PureComponent {
     }
   }
 
-  hanldeDownloadVideo=async () => {
-    this.setState({ showModal: false, showLoading: true, progress: 0 });
+  hanldeDownloadAudio=async () => {
+    this.setState({ showModal: false });
     if (this.requestPermission()) {
       try {
         const { grammarList } = this.props;
+        const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Video`;
 
         for (const item of grammarList) {
           const downloadUrl = this.getFileMp4(item.Path);
-          const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Video`;
-
           RNFetchBlob
             .config({
-              path: `${dir}/${item.Ten}.mp4`,
+              path: `${dir}/${item.Ten.trim()}.mp4`,
               fileCache: true,
-              // addAndroidDownloads: {
-              //   notification: true,
-              // },
+              addAndroidDownloads: {
+                notification: true,
+                title: `Great ! Download ${item.Ten.trim()} Success !`,
+                description: 'An media file.',
+                mime: 'video/mp4',
+                mediaScannable: true,
+              },
             })
-            .fetch('GET', downloadUrl)
-            .progress((received, total) => {
-              // listen to download progress event, every 10%
-              console.log('================================================');
-              console.log('total', total);
-              console.log('received', received);
-              console.log('progress', received / total);
-              console.log('================================================');
-              this.setState({ progress: received / total });
-            })
-            .then((responseDownload) => {
-              this.setState({ count: this.state.count + 1, progress: 100, showLoading: false });
-              RNFetchBlob.fs.scanFile([{ path: responseDownload.path(), mime: 'video/mp4' }]);
-              console.log('================================================');
-              console.log('sucess', this.state.count);
-              console.log('================================================');
-            });
+            .fetch('GET', downloadUrl);
         }
       } catch (error) {
         console.log('hanldeDownloadAudio error: ', error);
@@ -134,42 +119,30 @@ class GrammarListScreen extends React.PureComponent {
 
   navigationButtonPressed=async ({ buttonId }) => {
     if (buttonId === 'buttonDownload') {
-      // this.hanldeDownloadVideo();
       const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Video`;
       const isDir = await RNFetchBlob.fs.isDir(dir);
       const { grammarList } = this.props;
 
-      console.log('================================================');
-      console.log('isDir down all', isDir);
-      console.log('================================================');
       if (!isDir) {
         RNFetchBlob.fs.mkdir(dir).then((res) => {
-          console.log('================================================');
           console.log('mk down all', res);
-          console.log('================================================');
         }).catch((error) => {
-          console.log('================================================');
           console.log('mk error down all', error);
-          console.log('================================================');
         });
       } else {
         RNFetchBlob.fs.ls(dir)
-        // files will an array contains filenames
           .then((files) => {
-            console.log('================================================');
-            console.log('down all files', files.length);
-            console.log('================================================');
             if (files.length !== grammarList.length) {
               Alert.alert(
                 'Notice',
-                `Download all videos (${grammarList.length} files)?`,
+                'Download all videos?',
                 [
                   {
                     text: 'Cancel',
                     onPress: () => console.log('Cancel Pressed'),
                     style: 'cancel',
                   },
-                  { text: 'OK', onPress: this.hanldeDownloadVideo },
+                  { text: 'OK', onPress: this.hanldeDownloadAudio },
                 ],
                 { cancelable: false },
               );
@@ -179,9 +152,7 @@ class GrammarListScreen extends React.PureComponent {
               );
             }
           }).catch((error) => {
-            console.log('================================================');
             console.log('down all error', error);
-            console.log('================================================');
           });
       }
     }
@@ -219,7 +190,8 @@ class GrammarListScreen extends React.PureComponent {
 
   render() {
     const { grammarList } = this.props;
-    const { showModal, showLoading, progress } = this.state;
+    const { showModal, showLoading } = this.state;
+
     return (
       <View style={styles.container}>
         <FlatList
@@ -230,12 +202,6 @@ class GrammarListScreen extends React.PureComponent {
         />
         {showLoading ? (
           <GlobalLoading />
-          // <ProgressBarAndroid
-          //   styleAttr="Large"
-          //   indeterminate={false}
-          //   progress={progress}
-
-        // />
         ) : null}
 
         <Modal
@@ -258,7 +224,7 @@ class GrammarListScreen extends React.PureComponent {
                 {/* ok */}
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={this.hanldeDownloadVideo}
+                  onPress={this.hanldeDownloadAudio}
                 >
                   <Text style={styles.buttonOk}>OK</Text>
                 </TouchableOpacity>
