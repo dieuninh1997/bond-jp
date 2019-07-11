@@ -12,7 +12,7 @@ export default class GlobalAudio extends React.PureComponent {
     super(props);
     this.state = {
       speakerState: 'mute',
-      playState: 'playing',
+      playState: 'paused',
       playSeconds: 0,
       duration: 0,
     };

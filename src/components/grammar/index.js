@@ -126,7 +126,7 @@ class GrammarScreen extends React.PureComponent {
     if (this.requestPermission()) {
       try {
         const dir = `${RNFetchBlob.fs.dirs.DownloadDir}/Bondjp/Video`;
-        const isDir = RNFetchBlob.fs.isDir(dir);
+        const isDir = await RNFetchBlob.fs.isDir(dir);
         if (!isDir) {
           await RNFetchBlob.fs.mkdir(dir);
         }
