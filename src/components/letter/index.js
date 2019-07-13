@@ -1,10 +1,12 @@
 import React from 'react';
 import {
-  View, Text, Image, Dimensions,
+  View, Text, Image, Dimensions, TouchableOpacity,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { ScaledSheet } from 'react-native-size-matters';
+import Sound from 'react-native-sound';
 import { Colors, FontSizes, Sizes } from '../../common/variables';
+import SpeakerIcon from '../../assets/svg/speaker.svg';
 
 class LetterScreen extends React.PureComponent {
   static options(passProps) {
@@ -38,11 +40,37 @@ class LetterScreen extends React.PureComponent {
     Navigation.events().bindComponent(this); // <== Will be automatically unregistered when unmounted
   }
 
+  handleReadLetter=(letter) => {
+    const filePath = `${letter.PhienAm}.mp3`;
+    const sound = new Sound(filePath, Sound.MAIN_BUNDLE, (error) => {
+      if (error) {
+        // do something
+        console.log('================================================');
+        console.log('Loi gi do', error);
+        console.log('================================================');
+      }
+      // play when loaded
+      sound.play((success) => {
+        if (success) {
+          console.log('successfully finished playing');
+        } else {
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    });
+  }
+
   render() {
     const { letter } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.letterText}>{letter.TenChu}</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={styles.letterText}>{letter.TenChu}</Text>
+          <TouchableOpacity onPress={() => this.handleReadLetter(letter)}>
+            <SpeakerIcon width={32} height={32} />
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.letterImageContainer}>
           <Image
             style={styles.image}
