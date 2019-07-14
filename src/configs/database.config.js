@@ -11,7 +11,7 @@ import { openDatabase } from 'react-native-sqlite-storage';
 
 const db = openDatabase({
   name: 'database',
-  createFromLocation: '~www/database_2.sqlite',
+  createFromLocation: '~www/database_4.sqlite',
 },
 () => { console.log('Ket noi data thanh cong'); },
 (error) => {
